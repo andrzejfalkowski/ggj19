@@ -19,9 +19,16 @@ public class Interactable : MonoBehaviour
     [SerializeField]
     private SpriteRenderer aura;
 
+    private Spawner spawner;
+
     private void Start()
     {
         Unhighlight();
+    }
+
+    public void Init(Spawner spawner)
+    {
+        this.spawner = spawner;
     }
 
     public void Highlight()
@@ -38,5 +45,13 @@ public class Interactable : MonoBehaviour
     {
         DOTween.Kill("Pulsate" + this.gameObject.GetInstanceID());
         aura.color = new Color(aura.color.r, aura.color.g, aura.color.b, 0f);
+    }
+
+    private void OnDestroy()
+    {
+        if (spawner != null)
+        {
+            spawner.HandleSpawnDestruction();
+        }
     }
 }
