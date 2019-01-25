@@ -8,6 +8,24 @@ using UnityEngine;
         Plastic,
         Paper,
         Rubber,
-        Sharp
+        Sharp,
+        COUNT
+}
+
+    public enum EGameplayPhase
+    {
+        Intro,
+        Preparation,
+        Wave
+    }
+
+    public enum EWaveType
+    {
+        SewerDrop,
+        Flood,
+        Swarm,
+        ToxicGas,
+        Radiation,
+        COUNT
     }
 
