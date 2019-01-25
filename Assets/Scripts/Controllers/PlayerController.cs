@@ -109,7 +109,17 @@ public class PlayerController : MonoBehaviour
         }
         else if(carriedPickables.Count > 0)
         {
-            Drop(carriedPickables[carriedPickables.Count - 1]);
+            if (wallSlotsInRange.Count > 0)
+            {
+                BuildWall(
+                    wallSlotsInRange[wallSlotsInRange.Count - 1],
+                    carriedPickables[carriedPickables.Count - 1]
+                );
+            }
+            else
+            {
+                Drop(carriedPickables[carriedPickables.Count - 1]);
+            }
         }
     }
 
@@ -134,10 +144,10 @@ public class PlayerController : MonoBehaviour
         if (carriedPickables.Count < carriedPickablesLimit)
         {
             currentInteractionDuration += Time.deltaTime;
-            UIManager.Instance.ChangeInteractionProgress(currentInteractionDuration / pickable.TimeToPickup);
+            UIManager.Instance.ChangeInteractionProgress(currentInteractionDuration / pickable.TimeToInteract);
             UIManager.Instance.ChangeInteractionLabel("Picking up...");
 
-            if (currentInteractionDuration >= pickable.TimeToPickup)
+            if (currentInteractionDuration >= pickable.TimeToInteract)
             {
                 carriedPickables.Add(pickable);
 
@@ -152,6 +162,31 @@ public class PlayerController : MonoBehaviour
                 FinishInteraction();
             }
             //TODO
+        }
+    }
+
+    private void BuildWall(WallSlot wallSlot, Pickable pickable)
+    {
+#if DEBUG_INTERACTION
+        UnityEngine.Debug.Log("Install in wall");
+#endif
+        currentInteractionDuration += Time.deltaTime;
+        UIManager.Instance.ChangeInteractionProgress(currentInteractionDuration / wallSlot.TimeToInteract);
+        UIManager.Instance.ChangeInteractionLabel("BuildingWall...");
+
+        if (currentInteractionDuration >= wallSlot.TimeToInteract)
+        {
+            carriedPickables.Add(pickable);
+
+            if (pickablesInRange.Contains(pickable))
+            {
+                pickablesInRange.Remove(pickable);
+                pickable.Unhighlight();
+            }
+
+            pickable.gameObject.SetActive(false);
+
+            FinishInteraction();
         }
     }
 

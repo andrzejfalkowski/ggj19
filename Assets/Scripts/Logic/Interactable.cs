@@ -10,8 +10,8 @@ public class Interactable : MonoBehaviour
     [SerializeField]
     private EResourceType resourceType = EResourceType.Metal;
     [SerializeField]
-    private float timeToPickUp = 0.3f;
-    public float TimeToPickup { get { return timeToPickUp; } }
+    private float timeToInteract = 0.3f;
+    public float TimeToInteract { get { return timeToInteract; } }
 
     [SerializeField]
     private float value = 100f;
