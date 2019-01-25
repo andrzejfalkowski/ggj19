@@ -125,6 +125,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3186e16fb9ac7bf4fb0327d9fa26f294, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  movementSpeed: 100
+  jumpControlModifier: 0.1
+  jumpPower: 1500
   grounded: 0
 --- !u!50 &4605897213917580994
 Rigidbody2D:
@@ -141,7 +144,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 10
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -160,6 +163,6 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.25, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.45

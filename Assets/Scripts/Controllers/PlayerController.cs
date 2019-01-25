@@ -7,9 +7,16 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    const float MOVEMENT_SPEED = 10f;
-    const float JUMP_CONTROL_MODIFIER = 0.1f;
-    const float JUMP_POWER = 400f;
+    [SerializeField]
+    private float movementSpeed = 10f;
+    [SerializeField]
+    private float jumpControlModifier = 0.1f;
+    [SerializeField]
+    private float jumpPower = 400f;
+    [SerializeField]
+    private float maxSpeed = 100f;
+
+    private Rigidbody2D rigidbody;
 
     private List<Pickable> carriedPickables = new List<Pickable>();
     const int carriedPickablesLimit = 1;
@@ -23,7 +30,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        rigidbody = this.GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -56,14 +63,22 @@ public class PlayerController : MonoBehaviour
 
     private void Move(float side)
     {
-        this.GetComponent<Rigidbody2D>().AddForce(new Vector2(side * MOVEMENT_SPEED * (grounded ? 1f : JUMP_CONTROL_MODIFIER), 0));
+        if (!IsAtMaxSpeed())
+        {
+            this.rigidbody.AddForce(new Vector2(side * movementSpeed * (grounded ? 1f : jumpControlModifier), 0));
+        }
+    }
+
+    private bool IsAtMaxSpeed()
+    {
+        return false;
     }
 
     private void Jump()
     {
         if(grounded)
         {
-            this.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, JUMP_POWER));
+            this.rigidbody.AddForce(new Vector2(0, jumpPower));
         }      
     }
 
