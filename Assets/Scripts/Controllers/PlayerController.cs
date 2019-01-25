@@ -176,15 +176,9 @@ public class PlayerController : MonoBehaviour
 
         if (currentInteractionDuration >= wallSlot.TimeToInteract)
         {
-            carriedPickables.Add(pickable);
+            carriedPickables.Remove(pickable);
 
-            if (pickablesInRange.Contains(pickable))
-            {
-                pickablesInRange.Remove(pickable);
-                pickable.Unhighlight();
-            }
-
-            pickable.gameObject.SetActive(false);
+            wallSlot.BuildWall(pickable);
 
             FinishInteraction();
         }

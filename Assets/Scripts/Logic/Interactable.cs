@@ -6,15 +6,22 @@ using DG.Tweening;
 public class Interactable : MonoBehaviour
 {
     [SerializeField]
-    private string name;
+    protected string name;
+
     [SerializeField]
-    private EResourceType resourceType = EResourceType.Metal;
+    protected SpriteRenderer spriteRenderer;
+    public Sprite Sprite { get { return spriteRenderer.sprite; } }
+
     [SerializeField]
-    private float timeToInteract = 0.3f;
+    protected EResourceType resourceType = EResourceType.Metal;
+    public EResourceType ResourceType { get { return resourceType; } }
+
+    [SerializeField]
+    protected float timeToInteract = 0.3f;
     public float TimeToInteract { get { return timeToInteract; } }
 
     [SerializeField]
-    private float value = 100f;
+    protected float value = 100f;
 
     [SerializeField]
     private SpriteRenderer aura;
