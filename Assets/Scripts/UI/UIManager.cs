@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,6 +10,8 @@ public class UIManager : MonoBehaviour
 
     [SerializeField]
     private Image interactionBar;
+    [SerializeField]
+    private TextMeshProUGUI interactionLabel;
 
     private void Awake()
     {
@@ -28,6 +31,11 @@ public class UIManager : MonoBehaviour
     {
         interactionBar.fillAmount = value;
 
-        //interactionBar.gameObject.SetActive(value > 0f && value < 1f);
+        interactionBar.gameObject.SetActive(value > 0f && value < 1f);
+    }
+
+    public void ChangeInteractionLabel(string label)
+    {
+        interactionLabel.text = label;
     }
 }

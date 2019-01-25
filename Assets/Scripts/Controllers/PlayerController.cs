@@ -135,6 +135,7 @@ public class PlayerController : MonoBehaviour
         {
             currentInteractionDuration += Time.deltaTime;
             UIManager.Instance.ChangeInteractionProgress(currentInteractionDuration / pickable.TimeToPickup);
+            UIManager.Instance.ChangeInteractionLabel("Picking up...");
 
             if (currentInteractionDuration >= pickable.TimeToPickup)
             {
