@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour
     const int carriedPickablesLimit = 1;
 
     private List<Pickable> pickablesInRange = new List<Pickable>();
-    //private List<Pickable> interactablesInRange = new List<Pickable>();
+    private List<WallSlot> wallSlotsInRange = new List<WallSlot>();
 
     [SerializeField]
     private bool grounded = false;
@@ -193,48 +193,85 @@ public class PlayerController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collider)
     {
 #if DEBUG_INTERACTION
-        UnityEngine.Debug.Log("Interactable in range");
+        UnityEngine.Debug.Log("Collider in range");
 #endif
-        PickUpIfPossible(collider);
-        InstallInSlotIfPossible(collider);
+        HighlightInteractable(collider);
+        AddPickable(collider);
+        AddWallSlot(collider);
 
     }
 
-    private void PickUpIfPossible(Collider2D collider)
+    private void HighlightInteractable(Collider2D collider)
     {
-        Pickable pickable = collider.GetComponentInParent<Pickable>();
-        if (pickable != null)
+        Interactable interactable = collider.GetComponentInParent<Interactable>();
+        if (interactable != null)
         {
-            if (!pickablesInRange.Contains(pickable))
-            {
-#if DEBUG_INTERACTION
-                UnityEngine.Debug.Log("Add");
-#endif
-                pickablesInRange.Add(pickable);
-                pickable.Highlight();
-            }
+            interactable.Highlight();
         }
     }
 
-    private void InstallInSlotIfPossible(Collider2D collider)
+    private void UnhighlightInteractable(Collider2D collider)
+    {
+        Interactable interactable = collider.GetComponentInParent<Interactable>();
+        if (interactable != null)
+        {
+            interactable.Unhighlight();
+        }
+    }
+
+    private void AddPickable(Collider2D collider)
+    {
+        Pickable pickable = collider.GetComponentInParent<Pickable>();
+        if (pickable != null
+            && !pickablesInRange.Contains(pickable))
+        {
+#if DEBUG_INTERACTION
+                UnityEngine.Debug.Log("Add pickable");
+#endif
+                pickablesInRange.Add(pickable);
+        }
+    }
+
+    private void AddWallSlot(Collider2D collider)
     {
         WallSlot wallSlot = collider.GetComponentInParent<WallSlot>();
-
+        if (wallSlot != null
+            && !wallSlotsInRange.Contains(wallSlot))
+        {
+#if DEBUG_INTERACTION
+            UnityEngine.Debug.Log("Add wall slot");
+#endif
+            wallSlotsInRange.Add(wallSlot);
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collider)
     {
 #if DEBUG_INTERACTION
-        UnityEngine.Debug.Log("Interactable out of range");
+        UnityEngine.Debug.Log("Collider out of range");
 #endif
+        UnhighlightInteractable(collider);
+        RemovePickable(collider);
+        RemoveWallSlot(collider);
+    }
+    
+    private void RemovePickable(Collider2D collider)
+    {
         Pickable pickable = collider.GetComponentInParent<Pickable>();
-        if (pickable != null)
+        if (pickable != null
+            && pickablesInRange.Contains(pickable))
         {
-            if (pickablesInRange.Contains(pickable))
-            {
-                pickablesInRange.Remove(pickable);
-                pickable.Unhighlight();
-            }
+            pickablesInRange.Remove(pickable);
+        }
+    }
+
+    private void RemoveWallSlot(Collider2D collider)
+    {
+        WallSlot wallSlot = collider.GetComponentInParent<WallSlot>();
+        if (wallSlot != null
+            && wallSlotsInRange.Contains(wallSlot))
+        {
+            wallSlotsInRange.Remove(wallSlot);
         }
     }
 }
