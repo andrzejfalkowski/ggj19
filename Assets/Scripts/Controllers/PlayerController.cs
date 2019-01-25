@@ -1,4 +1,5 @@
 ﻿#define DEBUG_JUMPS
+#define DEBUG_INTERACTION
 
 using System.Collections;
 using System.Collections.Generic;
@@ -12,6 +13,8 @@ public class PlayerController : MonoBehaviour
 
     private List<Pickable> carriedPickables = new List<Pickable>();
     const int carriedPickablesLimit = 1;
+
+    private List<Pickable> pickablesInRange = new List<Pickable>();
 
     [SerializeField]
     private bool grounded = false;
@@ -39,9 +42,14 @@ public class PlayerController : MonoBehaviour
             Move(1f);
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.UpArrow))
         {
             Jump();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Interact();
         }
     }
 
@@ -58,13 +66,32 @@ public class PlayerController : MonoBehaviour
         }      
     }
 
+    private void Interact()
+    {
+        if (pickablesInRange.Count > 0)
+        {
+            PickUp(pickablesInRange[pickablesInRange.Count - 1]);
+        }
+    }
+
     private void PickUp(Pickable pickable)
     {
+
+#if DEBUG_INTERACTION
+        UnityEngine.Debug.Log("Pickup");
+#endif
         if (carriedPickables.Count < carriedPickablesLimit)
         {
             carriedPickables.Add(pickable);
             //TODO
         }
+
+        if (pickablesInRange.Contains(pickable))
+        {
+            pickablesInRange.Remove(pickable);
+        }
+
+        pickable.gameObject.SetActive(false);
     }
 
     private void Drop(Pickable pickable)
@@ -73,6 +100,11 @@ public class PlayerController : MonoBehaviour
         {
             carriedPickables.Remove(pickable);
             //TODO
+        }
+
+        if (!pickablesInRange.Contains(pickable))
+        {
+            pickablesInRange.Add(pickable);
         }
     }
 
@@ -91,4 +123,39 @@ public class PlayerController : MonoBehaviour
 #endif
         grounded = false;
     }
+
+    private void OnTriggerEnter2D(Collider2D collider)
+    {
+#if DEBUG_INTERACTION
+        UnityEngine.Debug.Log("Pickable in range");
+#endif
+        Pickable pickable = collider.GetComponentInChildren<Pickable>();
+        if (pickable != null)
+        {
+            if (!pickablesInRange.Contains(pickable))
+            {
+#if DEBUG_INTERACTION
+                UnityEngine.Debug.Log("Add");
+#endif
+                pickablesInRange.Add(pickable);
+            }            
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collider)
+    {
+#if DEBUG_INTERACTION
+        UnityEngine.Debug.Log("Pickable out of range");
+#endif
+        Pickable pickable = collider.GetComponentInChildren<Pickable>();
+        if (pickable != null)
+        {
+            if (!pickablesInRange.Contains(pickable))
+            {
+                pickablesInRange.Add(pickable);
+            }
+        }
+    }
+
+
 }

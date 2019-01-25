@@ -6,11 +6,18 @@ public class GameplayManager : MonoBehaviour
 {
     public GameplayManager Instance = null;
 
+    public PlayerController Player;
+
     private void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
+
+            if (Player == null)
+            {
+                Player = FindObjectOfType<PlayerController>();
+            }
         }
         else
         {

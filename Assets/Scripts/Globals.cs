@@ -7,6 +7,7 @@ using UnityEngine;
         Metal,
         Plastic,
         Paper,
-        Rubber
+        Rubber,
+        Sharp
     }
 
