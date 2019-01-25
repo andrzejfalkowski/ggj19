@@ -27,6 +27,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private bool grounded = false;
 
+    private float currentInteractionDuration = 0f;
+
+    private bool interactionLock = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -55,10 +59,25 @@ public class PlayerController : MonoBehaviour
             Jump();
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (!interactionLock)
         {
-            Interact();
+            if (Input.GetKey(KeyCode.Space))
+            {
+                Interact();
+            }
+            else
+            {
+                StopInteraction();
+            }
         }
+        else
+        {
+            if (Input.GetKeyUp(KeyCode.Space))
+            {
+                interactionLock = false;
+            }
+        }
+
     }
 
     private void Move(float side)
@@ -94,25 +113,45 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void StopInteraction()
+    {
+        currentInteractionDuration = 0f;
+        UIManager.Instance.ChangeInteractionProgress(0f);
+    }
+
+    private void FinishInteraction()
+    {
+        StopInteraction();
+        interactionLock = true;
+    }
+
     private void PickUp(Pickable pickable)
     {
-
+        
 #if DEBUG_INTERACTION
         UnityEngine.Debug.Log("Pickup");
 #endif
         if (carriedPickables.Count < carriedPickablesLimit)
         {
-            carriedPickables.Add(pickable);
+            currentInteractionDuration += Time.deltaTime;
+            UIManager.Instance.ChangeInteractionProgress(currentInteractionDuration / pickable.TimeToPickup);
+
+            if (currentInteractionDuration >= pickable.TimeToPickup)
+            {
+                carriedPickables.Add(pickable);
+
+                if (pickablesInRange.Contains(pickable))
+                {
+                    pickablesInRange.Remove(pickable);
+                    pickable.Unhighlight();
+                }
+
+                pickable.gameObject.SetActive(false);
+
+                FinishInteraction();
+            }
             //TODO
         }
-
-        if (pickablesInRange.Contains(pickable))
-        {
-            pickablesInRange.Remove(pickable);
-            pickable.Unhighlight();
-        }
-
-        pickable.gameObject.SetActive(false);
     }
 
     private void Drop(Pickable pickable)
@@ -130,6 +169,8 @@ public class PlayerController : MonoBehaviour
             pickablesInRange.Add(pickable);
             pickable.Highlight();
         }
+
+        FinishInteraction();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -182,6 +223,4 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-
-
 }

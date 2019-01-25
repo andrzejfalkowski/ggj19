@@ -11,6 +11,7 @@ public class Pickable : MonoBehaviour
     private EResourceType resourceType = EResourceType.Metal;
     [SerializeField]
     private float timeToPickUp = 0.3f;
+    public float TimeToPickup { get { return timeToPickUp; } }
 
     [SerializeField]
     private float value = 100f;
