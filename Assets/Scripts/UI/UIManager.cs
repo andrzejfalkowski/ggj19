@@ -12,6 +12,8 @@ public class UIManager : MonoBehaviour
     private Image interactionBar;
     [SerializeField]
     private TextMeshProUGUI interactionLabel;
+    [SerializeField]
+    private TextMeshProUGUI phaseLabel;
 
     private void Awake()
     {
@@ -37,5 +39,27 @@ public class UIManager : MonoBehaviour
     public void ChangeInteractionLabel(string label)
     {
         interactionLabel.text = label;
+    }
+
+    public void ChangePhaseLabel(EWaveType type, EGameplayPhase phase)
+    {
+        switch (type)
+        {
+            case EWaveType.Flood:
+                phaseLabel.text = phase == EGameplayPhase.Wave ? "Flood in progress!" : "Flood incoming!";
+                break;
+            case EWaveType.SewerDrop:
+                phaseLabel.text = phase == EGameplayPhase.Wave ? "Sewer drop in progress!" : "Sewer drop incoming!";
+                break;
+            case EWaveType.Radiation:
+                phaseLabel.text = phase == EGameplayPhase.Wave ? "Radiation in progress!" : "Radiation incoming!";
+                break;
+            case EWaveType.Swarm:
+                phaseLabel.text = phase == EGameplayPhase.Wave ? "Swarm in progress!" : "Swarm incoming!";
+                break;
+            case EWaveType.ToxicGas:
+                phaseLabel.text = phase == EGameplayPhase.Wave ? "Toxic gas in progress!" : "Toxic gas incoming!";
+                break;
+        }
     }
 }
