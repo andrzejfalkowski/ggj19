@@ -34,7 +34,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        rigidbody = this.GetComponent<Rigidbody2D>();
+        this.rigidbody = this.GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -193,8 +193,15 @@ public class PlayerController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collider)
     {
 #if DEBUG_INTERACTION
-        UnityEngine.Debug.Log("Pickable in range");
+        UnityEngine.Debug.Log("Interactable in range");
 #endif
+        PickUpIfPossible(collider);
+        InstallInSlotIfPossible(collider);
+
+    }
+
+    private void PickUpIfPossible(Collider2D collider)
+    {
         Pickable pickable = collider.GetComponentInParent<Pickable>();
         if (pickable != null)
         {
@@ -205,14 +212,20 @@ public class PlayerController : MonoBehaviour
 #endif
                 pickablesInRange.Add(pickable);
                 pickable.Highlight();
-            }            
+            }
         }
+    }
+
+    private void InstallInSlotIfPossible(Collider2D collider)
+    {
+        WallSlot wallSlot = collider.GetComponentInParent<WallSlot>();
+
     }
 
     private void OnTriggerExit2D(Collider2D collider)
     {
 #if DEBUG_INTERACTION
-        UnityEngine.Debug.Log("Pickable out of range");
+        UnityEngine.Debug.Log("Interactable out of range");
 #endif
         Pickable pickable = collider.GetComponentInParent<Pickable>();
         if (pickable != null)
