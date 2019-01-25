@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class Pickable : MonoBehaviour
 {
@@ -14,15 +15,27 @@ public class Pickable : MonoBehaviour
     [SerializeField]
     private float value = 100f;
 
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField]
+    private SpriteRenderer aura;
+
+    private void Start()
     {
-        
+        Unhighlight();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Highlight()
     {
-        
+        DOTween.Kill("Pulsate" + this.gameObject.GetInstanceID());
+        aura.color = new Color(aura.color.r, aura.color.g, aura.color.b, 0f);
+        if (aura != null)
+        {
+            aura.DOFade(1f, 0.3f).SetLoops(-1, LoopType.Yoyo).SetId("Pulsate" + this.gameObject.GetInstanceID());
+        }
+    }
+
+    public void Unhighlight()
+    {
+        DOTween.Kill("Pulsate" + this.gameObject.GetInstanceID());
+        aura.color = new Color(aura.color.r, aura.color.g, aura.color.b, 0f);
     }
 }

@@ -94,6 +94,7 @@ public class PlayerController : MonoBehaviour
         if (pickablesInRange.Contains(pickable))
         {
             pickablesInRange.Remove(pickable);
+            pickable.Unhighlight();
         }
 
         pickable.gameObject.SetActive(false);
@@ -112,6 +113,7 @@ public class PlayerController : MonoBehaviour
         if (!pickablesInRange.Contains(pickable))
         {
             pickablesInRange.Add(pickable);
+            pickable.Highlight();
         }
     }
 
@@ -145,6 +147,7 @@ public class PlayerController : MonoBehaviour
                 UnityEngine.Debug.Log("Add");
 #endif
                 pickablesInRange.Add(pickable);
+                pickable.Highlight();
             }            
         }
     }
@@ -157,9 +160,10 @@ public class PlayerController : MonoBehaviour
         Pickable pickable = collider.GetComponentInParent<Pickable>();
         if (pickable != null)
         {
-            if (!pickablesInRange.Contains(pickable))
+            if (pickablesInRange.Contains(pickable))
             {
-                pickablesInRange.Add(pickable);
+                pickablesInRange.Remove(pickable);
+                pickable.Unhighlight();
             }
         }
     }
