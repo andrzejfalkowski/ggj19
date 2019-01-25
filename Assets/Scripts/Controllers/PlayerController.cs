@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     const int carriedPickablesLimit = 1;
 
     private List<Pickable> pickablesInRange = new List<Pickable>();
+    //private List<Pickable> interactablesInRange = new List<Pickable>();
 
     [SerializeField]
     private bool grounded = false;
@@ -33,16 +34,16 @@ public class PlayerController : MonoBehaviour
 
     void HandleInput()
     {
-        if (Input.GetKey(KeyCode.LeftArrow))
+        if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
         {
             Move(-1f);
         }
-        else if (Input.GetKey(KeyCode.RightArrow))
+        if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
         {
             Move(1f);
         }
 
-        if (Input.GetKeyDown(KeyCode.UpArrow))
+        if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
         {
             Jump();
         }
@@ -72,6 +73,10 @@ public class PlayerController : MonoBehaviour
         {
             PickUp(pickablesInRange[pickablesInRange.Count - 1]);
         }
+        else if(carriedPickables.Count > 0)
+        {
+            Drop(carriedPickables[carriedPickables.Count - 1]);
+        }
     }
 
     private void PickUp(Pickable pickable)
@@ -99,7 +104,9 @@ public class PlayerController : MonoBehaviour
         if (carriedPickables.Contains(pickable))
         {
             carriedPickables.Remove(pickable);
-            //TODO
+
+            pickable.transform.position = this.transform.position;
+            pickable.gameObject.SetActive(true);
         }
 
         if (!pickablesInRange.Contains(pickable))
@@ -129,7 +136,7 @@ public class PlayerController : MonoBehaviour
 #if DEBUG_INTERACTION
         UnityEngine.Debug.Log("Pickable in range");
 #endif
-        Pickable pickable = collider.GetComponentInChildren<Pickable>();
+        Pickable pickable = collider.GetComponentInParent<Pickable>();
         if (pickable != null)
         {
             if (!pickablesInRange.Contains(pickable))
@@ -147,7 +154,7 @@ public class PlayerController : MonoBehaviour
 #if DEBUG_INTERACTION
         UnityEngine.Debug.Log("Pickable out of range");
 #endif
-        Pickable pickable = collider.GetComponentInChildren<Pickable>();
+        Pickable pickable = collider.GetComponentInParent<Pickable>();
         if (pickable != null)
         {
             if (!pickablesInRange.Contains(pickable))
