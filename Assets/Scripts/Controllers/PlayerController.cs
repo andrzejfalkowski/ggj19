@@ -8,7 +8,10 @@ public class PlayerController : MonoBehaviour
 {
     const float MOVEMENT_SPEED = 10f;
     const float JUMP_CONTROL_MODIFIER = 0.1f;
-    const float JUMP_POWER = 300f;
+    const float JUMP_POWER = 400f;
+
+    private List<Pickable> carriedPickables = new List<Pickable>();
+    const int carriedPickablesLimit = 1;
 
     [SerializeField]
     private bool grounded = false;
@@ -52,8 +55,25 @@ public class PlayerController : MonoBehaviour
         if(grounded)
         {
             this.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, JUMP_POWER));
+        }      
+    }
+
+    private void PickUp(Pickable pickable)
+    {
+        if (carriedPickables.Count < carriedPickablesLimit)
+        {
+            carriedPickables.Add(pickable);
+            //TODO
         }
-        
+    }
+
+    private void Drop(Pickable pickable)
+    {
+        if (carriedPickables.Contains(pickable))
+        {
+            carriedPickables.Remove(pickable);
+            //TODO
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
