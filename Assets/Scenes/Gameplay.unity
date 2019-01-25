@@ -883,6 +883,14 @@ PrefabInstance:
       propertyPath: followed
       value: 
       objectReference: {fileID: 2219939067268668285}
+    - target: {fileID: 1185220441, guid: f126492b6d3409545b83f58215dd3432, type: 3}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1185220441, guid: f126492b6d3409545b83f58215dd3432, type: 3}
+      propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f126492b6d3409545b83f58215dd3432, type: 3}
 --- !u!1001 &7297407301146839716
