@@ -6,6 +6,7 @@ using UnityEngine;
 public class PassableCollider : MonoBehaviour
 {
     private BoxCollider2D collider;
+    [SerializeField]
     private bool playerIsTouching;
 
     private void Awake()
@@ -15,13 +16,16 @@ public class PassableCollider : MonoBehaviour
 
     private void Update()
     {
+        playerIsTouching = this.collider.IsTouching(GameplayManager.Instance.Player.GetComponent<Collider2D>())
+            && this.collider.isTrigger;
         if (GameplayManager.Instance == null)
         {
             return;
         }
         if (IsMidAirAndAscending()
             || Input.GetKey(KeyCode.DownArrow)
-            || Input.GetKey(KeyCode.S))
+            || Input.GetKey(KeyCode.S)
+            || playerIsTouching)
         {
             SetPassable(true);
         }
@@ -47,26 +51,11 @@ public class PassableCollider : MonoBehaviour
         {
             return;
         }
-        Debug.Log("passable " + passable);
         collider.isTrigger = passable;
         if (passable)
         {
             GameplayManager.Instance.Player.CollisionTurnedIntoTrigger(this.collider);
-        }
-    }
-
-    private void OnTriggerEnter2D(Collider2D collider)
-    {
-        if (collider.GetComponent<PlayerController>() != null)
-        {
-            playerIsTouching = true;
-        }
-    }
-    private void OnTriggerExit2D(Collider2D collider)
-    {
-        if (collider.GetComponent<PlayerController>() != null)
-        {
-            playerIsTouching = false;
+            //playerIsTouching = true;
         }
     }
 }
