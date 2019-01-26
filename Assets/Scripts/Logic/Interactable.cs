@@ -21,8 +21,12 @@ public class Interactable : MonoBehaviour
     public float TimeToInteract { get { return timeToInteract; } }
 
     [SerializeField]
-    protected float value = 100f;
-    public float Value { get { return value; } }
+    protected float tightness = 100f;
+    public float Tightness { get { return tightness; } }
+
+    [SerializeField]
+    protected float durability = 100f;
+    public float Durability { get { return durability; } }
 
     [SerializeField]
     private SpriteRenderer aura;
