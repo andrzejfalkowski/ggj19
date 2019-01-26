@@ -11,15 +11,10 @@ public class UIManager : MonoBehaviour
     public static UIManager Instance = null;
 
     [SerializeField]
-    private Image interactionBar;
-    [SerializeField]
-    private TextMeshProUGUI interactionLabel;
-    [SerializeField]
     private TextMeshProUGUI phaseLabel;
     [SerializeField]
     private TextMeshProUGUI timerLabel;
-    [SerializeField]
-    private Image oxygenBar;
+
 
     [SerializeField]
     private GameObject gameOverPanel;
@@ -31,25 +26,12 @@ public class UIManager : MonoBehaviour
         {
             Instance = this;
 
-            ChangeInteractionProgress(0f);
             gameOverPanel.SetActive(false);
         }
         else
         {
             GameObject.Destroy(this.gameObject);
         }
-    }
-
-    public void ChangeInteractionProgress(float value)
-    {
-        interactionBar.fillAmount = value;
-
-        interactionBar.gameObject.SetActive(value > 0f && value < 1f);
-    }
-
-    public void ChangeInteractionLabel(string label)
-    {
-        interactionLabel.text = label;
     }
 
     public void ChangePhaseLabel(EWaveType type, EGameplayPhase phase)
@@ -78,13 +60,6 @@ public class UIManager : MonoBehaviour
     {
         TimeSpan timeSpan = TimeSpan.FromSeconds(value);
         timerLabel.text = timeSpan.Minutes.ToString("00") + ":" + timeSpan.Seconds.ToString("00");
-    }
-
-    public void ChangeOxygenLevel(float value)
-    {
-        oxygenBar.fillAmount = value;
-
-        oxygenBar.gameObject.SetActive(value < 1f);
     }
 
     public void GameOver()

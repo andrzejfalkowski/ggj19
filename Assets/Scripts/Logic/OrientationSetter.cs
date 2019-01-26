@@ -18,6 +18,8 @@ public class OrientationSetter : MonoBehaviour
     private EOrientation orientation;
     [SerializeField]
     private float orientationChangeSpeedThreshold = 0.1f;
+    [SerializeField]
+    private Transform orientationTarget;
 
     private Rigidbody2D rigidbody;
 
@@ -25,24 +27,26 @@ public class OrientationSetter : MonoBehaviour
     void Start()
     {
         this.rigidbody = this.GetComponent<Rigidbody2D>();
+        NormalOrientationScale = orientationTarget.localScale;
+        InverseOrientationScale = new Vector3(-NormalOrientationScale.x, NormalOrientationScale.y, NormalOrientationScale.z);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Mathf.Abs(rigidbody.velocity.x) < orientationChangeSpeedThreshold)
+        if (Mathf.Abs(this.rigidbody.velocity.x) < orientationChangeSpeedThreshold)
         {
             return;
         }
-        var movesToRight = (rigidbody.velocity.x >= 0);
+        var movesToRight = (this.rigidbody.velocity.x >= 0);
         var isNormallyOrientedToRight = (orientation == EOrientation.Right);
         if (movesToRight == isNormallyOrientedToRight)
         {
-            this.transform.localScale = NormalOrientationScale;
+            orientationTarget.localScale = NormalOrientationScale;
         }
         else
         {
-            this.transform.localScale = InverseOrientationScale;
+            orientationTarget.localScale = InverseOrientationScale;
         }
     }
 }

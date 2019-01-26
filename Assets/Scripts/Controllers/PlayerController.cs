@@ -3,7 +3,9 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -55,6 +57,13 @@ public class PlayerController : MonoBehaviour
     private float oxygen = 1f;
     public float Oxygen { get { return oxygen; } }
 
+    [SerializeField]
+    private Image interactionBar;
+    [SerializeField]
+    private TextMeshProUGUI interactionLabel;
+    [SerializeField]
+    private Image oxygenBar;
+
     public bool IsFalling()
     {
         return (this.rigidbody != false
@@ -79,7 +88,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         this.rigidbody = this.GetComponent<Rigidbody2D>();
-        this.animator = this.GetComponent<Animator>();
+        this.animator = this.GetComponentInChildren<Animator>();
 
         defaultGravity = this.rigidbody.gravityScale;
     }
@@ -169,7 +178,7 @@ public class PlayerController : MonoBehaviour
             oxygen = Mathf.Clamp01(oxygen + Time.deltaTime * breathingSkills);
             this.rigidbody.gravityScale = defaultGravity;
         }
-        UIManager.Instance.ChangeOxygenLevel(oxygen);       
+        ChangeOxygenLevel(oxygen);       
     }
 
     private void SetAnimationValues()
@@ -266,7 +275,7 @@ public class PlayerController : MonoBehaviour
     private void StopInteraction()
     {
         currentInteractionDuration = 0f;
-        UIManager.Instance.ChangeInteractionProgress(0f);
+        ChangeInteractionProgress(0f);
     }
 
     private void FinishInteraction()
@@ -289,8 +298,8 @@ public class PlayerController : MonoBehaviour
         if (carriedPickables.Count < carriedPickablesLimit)
         {
             currentInteractionDuration += Time.deltaTime;
-            UIManager.Instance.ChangeInteractionProgress(currentInteractionDuration / pickable.TimeToInteract);
-            UIManager.Instance.ChangeInteractionLabel("Picking up...");
+            ChangeInteractionProgress(currentInteractionDuration / pickable.TimeToInteract);
+            ChangeInteractionLabel("Picking up...");
 
             if (currentInteractionDuration >= pickable.TimeToInteract)
             {
@@ -316,8 +325,8 @@ public class PlayerController : MonoBehaviour
         UnityEngine.Debug.Log("Install in wall");
 #endif
         currentInteractionDuration += Time.deltaTime;
-        UIManager.Instance.ChangeInteractionProgress(currentInteractionDuration / wallSlot.TimeToInteract);
-        UIManager.Instance.ChangeInteractionLabel("BuildingWall...");
+        ChangeInteractionProgress(currentInteractionDuration / wallSlot.TimeToInteract);
+        ChangeInteractionLabel("BuildingWall...");
 
         if (currentInteractionDuration >= wallSlot.TimeToInteract)
         {
@@ -497,4 +506,25 @@ public class PlayerController : MonoBehaviour
             wallSlotsInRange.Remove(wallSlot);
         }
     }
+
+    public void ChangeOxygenLevel(float value)
+    {
+        oxygenBar.fillAmount = value;
+
+        oxygenBar.gameObject.SetActive(value < 1f);
+    }
+
+    public void ChangeInteractionProgress(float value)
+    {
+        interactionBar.fillAmount = value;
+
+        interactionBar.gameObject.SetActive(value > 0f && value < 1f);
+    }
+
+    public void ChangeInteractionLabel(string label)
+    {
+        interactionLabel.text = label;
+    }
+
+
 }
