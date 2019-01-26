@@ -1,5 +1,5 @@
-﻿#define DEBUG_JUMPS
-#define DEBUG_INTERACTION
+﻿//#define DEBUG_JUMPS
+//#define DEBUG_INTERACTION
 
 using System.Collections;
 using System.Collections.Generic;
@@ -14,7 +14,17 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float jumpPower = 400f;
     [SerializeField]
+    private float longJumpAdditionalPower = 100f;
+    [SerializeField]
+    private float longJumpTimeThresholdStop = 0.2f;
+    [SerializeField]
+    private float longJumpTimeThresholdStart = 0.1f;
+    [SerializeField]
     private float maxSpeed = 100f;
+    [SerializeField]
+    private float runAnimationMovementThreshold = 0.1f;
+
+    private float timeOnJump = 0f;
 
     private Rigidbody2D rigidbody;
     private Animator animator;
@@ -31,6 +41,7 @@ public class PlayerController : MonoBehaviour
     private List<Collider2D> currentlyColliding = new List<Collider2D>();
 
     private bool jumping = false;
+    private bool longJumping = false;
     private int moving = 0;
 
     private float currentInteractionDuration = 0f;
@@ -50,9 +61,27 @@ public class PlayerController : MonoBehaviour
         moving += (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A)) ? -1 : 0;
         moving += (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D)) ? 1 : 0;
 
-        if(!jumping)
+        if (!jumping)
+        {
             jumping = (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W));
+        }
+        if (!grounded
+            && (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W)))
+        {
+            Debug.Log("jump key on");
+            timeOnJump += Time.deltaTime;
+            Debug.Log("time on jump " + timeOnJump);
+            if (timeOnJump > longJumpTimeThresholdStart
+                && timeOnJump < longJumpTimeThresholdStop)
+            {
+                longJumping = true;
+            }
+        }
 
+        //if (!jumping && !longJumping)
+        //{
+        //    DisableLongJump();
+        //}
         if (!interactionLock)
         {
             if (Input.GetKey(KeyCode.Space))
@@ -76,24 +105,40 @@ public class PlayerController : MonoBehaviour
 
     private void SetAnimationValues()
     {
-        animator.SetBool("Moving", (this.rigidbody.velocity != Vector2.zero));
+        animator.SetBool("Moving", (this.rigidbody.velocity.magnitude > runAnimationMovementThreshold));
         animator.SetBool("Falling", (this.rigidbody.velocity.y < 0));
         animator.SetBool("Grounded", grounded);
         animator.SetBool("Interacting", IsInteracting());
+        animator.SetBool("JumpTriggered", (jumping || longJumping) );
+        if (!grounded)
+        {
+            Debug.Log("======");
+            Debug.Log("Moving" + (this.rigidbody.velocity.magnitude > runAnimationMovementThreshold));
+            Debug.Log("Falling" + (this.rigidbody.velocity.y < 0));
+            Debug.Log("Grounded" + grounded);
+            Debug.Log("Interacting" + IsInteracting());
+            Debug.Log("JumpTriggered" + (jumping || longJumping));
+        }
     }
 
     void FixedUpdate()
     {
-        if (jumping)
+        if (jumping || longJumping)
         {
             Jump();
             jumping = false;
+            longJumping = false;
         }
 
         if (moving != 0)
         {
             Move(moving);
         }
+    }
+
+    private void DisableLongJump()
+    {
+        timeOnJump = longJumpTimeThresholdStop;
     }
 
     private void Move(float side)
@@ -106,8 +151,15 @@ public class PlayerController : MonoBehaviour
     {
         if(grounded)
         {
+            Debug.Log("begin jump");
             this.rigidbody.AddForce(new Vector2(0, jumpPower));
-        }      
+            timeOnJump = 0f;
+        }
+        else if (longJumping)
+        {
+            Debug.Log("long jump");
+            this.rigidbody.AddForce(new Vector2(0, longJumpAdditionalPower * Time.deltaTime));
+        }
     }
 
     private void Interact()

@@ -763,8 +763,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementSpeed: 150
   jumpControlModifier: 0.25
-  jumpPower: 1500
+  jumpPower: 800
+  longJumpAdditionalPower: 8000
+  longJumpTimeThresholdStop: 0.12
+  longJumpTimeThresholdStart: 0.05
   maxSpeed: 8
+  runAnimationMovementThreshold: 0.1
   grounded: 1
 --- !u!50 &4605897213917580994
 Rigidbody2D:
