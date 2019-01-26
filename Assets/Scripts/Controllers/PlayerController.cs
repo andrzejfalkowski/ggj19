@@ -68,20 +68,13 @@ public class PlayerController : MonoBehaviour
         if (!grounded
             && (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W)))
         {
-            Debug.Log("jump key on");
             timeOnJump += Time.deltaTime;
-            Debug.Log("time on jump " + timeOnJump);
             if (timeOnJump > longJumpTimeThresholdStart
                 && timeOnJump < longJumpTimeThresholdStop)
             {
                 longJumping = true;
             }
         }
-
-        //if (!jumping && !longJumping)
-        //{
-        //    DisableLongJump();
-        //}
         if (!interactionLock)
         {
             if (Input.GetKey(KeyCode.Space))
@@ -110,15 +103,6 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("Grounded", grounded);
         animator.SetBool("Interacting", IsInteracting());
         animator.SetBool("JumpTriggered", (jumping || longJumping) );
-        if (!grounded)
-        {
-            Debug.Log("======");
-            Debug.Log("Moving" + (this.rigidbody.velocity.magnitude > runAnimationMovementThreshold));
-            Debug.Log("Falling" + (this.rigidbody.velocity.y < 0));
-            Debug.Log("Grounded" + grounded);
-            Debug.Log("Interacting" + IsInteracting());
-            Debug.Log("JumpTriggered" + (jumping || longJumping));
-        }
     }
 
     void FixedUpdate()
@@ -151,13 +135,11 @@ public class PlayerController : MonoBehaviour
     {
         if(grounded)
         {
-            Debug.Log("begin jump");
             this.rigidbody.AddForce(new Vector2(0, jumpPower));
             timeOnJump = 0f;
         }
         else if (longJumping)
         {
-            Debug.Log("long jump");
             this.rigidbody.AddForce(new Vector2(0, longJumpAdditionalPower * Time.deltaTime));
         }
     }
