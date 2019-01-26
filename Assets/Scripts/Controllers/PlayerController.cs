@@ -67,12 +67,14 @@ public class PlayerController : MonoBehaviour
     private bool longJumping = false;
     private int moving = 0;
 
+    private bool anyMovement = false;
+    public bool AnyMovement { get { return anyMovement; } }
+
     private int swimming = 0;
 
     private float currentInteractionDuration = 0f;
 
     private bool interactionLock = false;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -144,6 +146,8 @@ public class PlayerController : MonoBehaviour
         {
             HandleUnderwaterness(this.transform.position.y < GameplayManager.Instance.Waves.ExternalWaterLevel());
         }
+
+        anyMovement = moving != 0f || swimming != 0f || jumping || longJumping;
     }
 
     void HandleUnderwaterness(bool underwater)

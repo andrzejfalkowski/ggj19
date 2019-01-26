@@ -97,3 +97,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   snapDuration: 0.1
   offset: {x: 0, y: 2, z: 0}
+  maxZoom: 3.5
+  minZoom: 5
+  zoomInDuration: 3
+  zoomOutDuration: 0.2
