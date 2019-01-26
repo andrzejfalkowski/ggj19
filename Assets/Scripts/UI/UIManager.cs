@@ -17,6 +17,8 @@ public class UIManager : MonoBehaviour
     private TextMeshProUGUI phaseLabel;
     [SerializeField]
     private TextMeshProUGUI timerLabel;
+    [SerializeField]
+    private Image oxygenBar;
 
     private void Awake()
     {
@@ -70,5 +72,12 @@ public class UIManager : MonoBehaviour
     {
         TimeSpan timeSpan = TimeSpan.FromSeconds(value);
         timerLabel.text = timeSpan.Minutes.ToString("00") + ":" + timeSpan.Seconds.ToString("00");
+    }
+
+    public void ChangeOxygenLevel(float value)
+    {
+        oxygenBar.fillAmount = value;
+
+        oxygenBar.gameObject.SetActive(value < 1f);
     }
 }

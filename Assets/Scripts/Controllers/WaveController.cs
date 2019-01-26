@@ -101,4 +101,14 @@ public class WaveController : MonoBehaviour
             relevantWallSlots[i].DamageWall(10f * Time.deltaTime);
         }
     }
+
+    public float ExternalWaterLevel()
+    {
+        return externalWave.transform.position.y;
+    }
+
+    public float InternalWaterLevel()
+    {
+        return externalWave.transform.position.y;
+    }
 }

@@ -28,6 +28,7 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody2D rigidbody;
     private Animator animator;
+    private float defaultGravity = 8f;
 
     private List<Pickable> carriedPickables = new List<Pickable>();
     const int carriedPickablesLimit = 1;
@@ -40,8 +41,19 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField]
     private bool grounded = false;
-
     public bool Grounded { get { return grounded; } }
+
+    [SerializeField]
+    private bool inNest = false;
+    [SerializeField]
+    private bool isUnderwater = false;
+
+    [SerializeField]
+    private float drowningSkills = 0.1f;
+    [SerializeField]
+    private float breathingSkills = 0.1f;
+    private float oxygen = 1f;
+    public float Oxygen { get { return oxygen; } }
 
     public bool IsFalling()
     {
@@ -55,6 +67,8 @@ public class PlayerController : MonoBehaviour
     private bool longJumping = false;
     private int moving = 0;
 
+    private int swimming = 0;
+
     private float currentInteractionDuration = 0f;
 
     private bool interactionLock = false;
@@ -64,6 +78,8 @@ public class PlayerController : MonoBehaviour
     {
         this.rigidbody = this.GetComponent<Rigidbody2D>();
         this.animator = this.GetComponent<Animator>();
+
+        defaultGravity = this.rigidbody.gravityScale;
     }
 
     void Update()
@@ -72,20 +88,31 @@ public class PlayerController : MonoBehaviour
         moving += (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A)) ? -1 : 0;
         moving += (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D)) ? 1 : 0;
 
-        if (!jumping)
+        if (!isUnderwater)
         {
-            jumping = (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W));
-        }
-        if (!grounded
-            && (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W)))
-        {
-            timeOnJump += Time.deltaTime;
-            if (timeOnJump > longJumpTimeThresholdStart
-                && timeOnJump < longJumpTimeThresholdStop)
+            if (!jumping)
             {
-                longJumping = true;
+                jumping = (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W));
             }
+            if (!grounded
+                && (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W)))
+            {
+                timeOnJump += Time.deltaTime;
+                if (timeOnJump > longJumpTimeThresholdStart
+                    && timeOnJump < longJumpTimeThresholdStop)
+                {
+                    longJumping = true;
+                }
+            }
+
+            swimming = 0;
         }
+        else
+        {
+            swimming = (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W)) ? 1 : 
+                (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S)) ? -1 : 0;
+        }
+
         if (!interactionLock)
         {
             if (Input.GetKey(KeyCode.Space))
@@ -105,6 +132,32 @@ public class PlayerController : MonoBehaviour
             }
         }
         SetAnimationValues();
+
+        if (inNest)
+        {
+            HandleUnderwaterness(this.transform.position.y < GameplayManager.Instance.Waves.InternalWaterLevel());
+        }
+        else
+        {
+            HandleUnderwaterness(this.transform.position.y < GameplayManager.Instance.Waves.ExternalWaterLevel());
+        }
+    }
+
+    void HandleUnderwaterness(bool underwater)
+    {
+        //UnityEngine.Debug.Log("HandleUnderwaterness " + underwater + "" + oxygen);
+        isUnderwater = underwater;
+        if (underwater)
+        {
+            oxygen = Mathf.Clamp01(oxygen - Time.deltaTime * drowningSkills);
+            this.rigidbody.gravityScale = defaultGravity / 2f;
+        }
+        else
+        {
+            oxygen = Mathf.Clamp01(oxygen + Time.deltaTime * breathingSkills);
+            this.rigidbody.gravityScale = defaultGravity;
+        }
+        UIManager.Instance.ChangeOxygenLevel(oxygen);       
     }
 
     private void SetAnimationValues()
@@ -125,6 +178,11 @@ public class PlayerController : MonoBehaviour
             longJumping = false;
         }
 
+        if (swimming != 0)
+        {
+            Swim(swimming);
+        }
+
         if (moving != 0)
         {
             Move(moving);
@@ -140,6 +198,19 @@ public class PlayerController : MonoBehaviour
     {
         this.rigidbody.velocity = new Vector2(Mathf.Clamp(this.rigidbody.velocity.x, -maxSpeed, maxSpeed), this.rigidbody.velocity.y);
         this.rigidbody.AddForce(new Vector2(side * movementSpeed * (grounded ? 1f : jumpControlModifier), 0));           
+    }
+
+    private void Swim(float side)
+    {
+        float limit = maxSpeed;
+        //if (Mathf.Abs(this.rigidbody.velocity.y) > Mathf.Abs(limit))
+        {
+            this.rigidbody.velocity = new Vector2(this.rigidbody.velocity.x, Mathf.Clamp(this.rigidbody.velocity.y, -limit, limit));
+        }
+        //else
+        {
+            this.rigidbody.AddForce(new Vector2(0f, side * jumpPower / 4f));
+        }      
     }
 
     private void Jump()
@@ -325,7 +396,7 @@ public class PlayerController : MonoBehaviour
         HighlightInteractable(collider);
         AddPickable(collider);
         AddWallSlot(collider);
-
+        SetInNest(collider, true);
     }
 
     private void HighlightInteractable(Collider2D collider)
@@ -380,8 +451,18 @@ public class PlayerController : MonoBehaviour
         UnhighlightInteractable(collider);
         RemovePickable(collider);
         RemoveWallSlot(collider);
+        SetInNest(collider, false);
     }
-    
+
+    private void SetInNest(Collider2D collider, bool inside)
+    {
+        WaveController nest = collider.GetComponentInParent<WaveController>();
+        if (nest != null)
+        {
+            inNest = inside;
+        }
+    }
+
     private void RemovePickable(Collider2D collider)
     {
         Pickable pickable = collider.GetComponentInParent<Pickable>();
