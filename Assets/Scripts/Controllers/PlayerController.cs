@@ -27,6 +27,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private bool grounded = false;
 
+    private bool jumping = false;
+    private int moving = 0;
+
     private float currentInteractionDuration = 0f;
 
     private bool interactionLock = false;
@@ -37,27 +40,14 @@ public class PlayerController : MonoBehaviour
         this.rigidbody = this.GetComponent<Rigidbody2D>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        HandleInput();
-    }
+        moving = 0;
+        moving += (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A)) ? -1 : 0;
+        moving += (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D)) ? 1 : 0;
 
-    void HandleInput()
-    {
-        if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
-        {
-            Move(-1f);
-        }
-        if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
-        {
-            Move(1f);
-        }
-
-        if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
-        {
-            Jump();
-        }
+        if(!jumping)
+            jumping = (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W));
 
         if (!interactionLock)
         {
@@ -77,14 +67,29 @@ public class PlayerController : MonoBehaviour
                 interactionLock = false;
             }
         }
+    }
 
+
+    void FixedUpdate()
+    {
+        if (jumping)
+        {
+            Jump();
+            jumping = false;
+        }
+
+        if (moving != 0)
+        {
+            Move(moving);
+        }
     }
 
     private void Move(float side)
     {
         if (!IsAtMaxSpeed())
         {
-            this.rigidbody.AddForce(new Vector2(side * movementSpeed * (grounded ? 1f : jumpControlModifier), 0));
+            this.rigidbody.velocity = new Vector2(Mathf.Clamp(this.rigidbody.velocity.x, -maxSpeed, maxSpeed), this.rigidbody.velocity.y);
+            this.rigidbody.AddForce(new Vector2(side * movementSpeed * (grounded ? 1f : jumpControlModifier), 0));           
         }
     }
 

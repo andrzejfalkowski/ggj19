@@ -126,8 +126,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 100
-  jumpControlModifier: 0.1
+  jumpControlModifier: 0.25
   jumpPower: 1500
+  maxSpeed: 15
   grounded: 0
 --- !u!50 &4605897213917580994
 Rigidbody2D:
