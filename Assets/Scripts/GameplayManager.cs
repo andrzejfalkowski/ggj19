@@ -42,11 +42,13 @@ public class GameplayManager : MonoBehaviour
             case EGameplayPhase.Wave:
                 CurrentPhase = EGameplayPhase.Preparation;
                 DOVirtual.DelayedCall(30f, ()=> { NextPhase(); }).SetId("NextPhase");
+                DOTween.To(()=> 30f, (value) => { UIManager.Instance.ChangeTimerLabel(value) ; }, 0f, 30f);
                 break;
             case EGameplayPhase.Preparation:
                 CurrentWave = (EWaveType)UnityEngine.Random.Range(0, (int)EWaveType.COUNT);
                 CurrentPhase = EGameplayPhase.Wave;
                 DOVirtual.DelayedCall(30f, () => { NextPhase(); }).SetId("NextPhase"); ;
+                DOTween.To(() => 30f, (value) => { UIManager.Instance.ChangeTimerLabel(value); }, 0f, 30f);
                 break;
         }
 
