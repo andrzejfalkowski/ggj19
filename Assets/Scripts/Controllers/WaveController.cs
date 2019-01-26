@@ -48,10 +48,10 @@ public class WaveController : MonoBehaviour
     {
         externalWave.transform.DOLocalMoveY(maxLevel, 0f);
         internalWave.transform.DOLocalMoveY(minLevel, outflowDuration);
-        externalWave.transform.DOLocalMoveY(minLevel, outflowDuration);//.OnComplete(()=> { StartInflow();  });
+        externalWave.transform.DOLocalMoveY(minLevel, outflowDuration).OnUpdate(() => { OnUpdate(false); });
     }
 
-    void OnUpdate()
+    void OnUpdate(bool calculateInternal = true)
     {
         // take relevant wall slots
         List<WallSlot> relevantWallSlots = new List<WallSlot>();
@@ -61,6 +61,10 @@ public class WaveController : MonoBehaviour
             {
                 relevantWallSlots.Add(WallSlots[i]);
             }
+            else
+            {
+                WallSlots[i].StopLeak();
+            }
         }
 
         if (relevantWallSlots.Count == 0)
@@ -69,27 +73,27 @@ public class WaveController : MonoBehaviour
             return;
         }
 
-        float totalTightness = 1f;
-        for (int i = 0; i < relevantWallSlots.Count; i++)
+        if (calculateInternal)
         {
-            totalTightness *= (relevantWallSlots[i].Tightness / 100f);
+            float totalTightness = 1f;
+            for (int i = 0; i < relevantWallSlots.Count; i++)
+            {
+                totalTightness *= (relevantWallSlots[i].Tightness / 100f);
+            }
+
+            float externalRaise = externalWave.transform.localPosition.y - previousExternalY;
+            float internalRaise = externalRaise * (1 - totalTightness);
+            if (internalRaise > 0f && internalRaise * 1.5f + internalWave.transform.localPosition.y < externalRaise + externalWave.transform.localPosition.y)
+            {
+                internalRaise *= 1.5f;
+            }
+
+            Vector3 pos = internalWave.transform.localPosition;
+            pos.y += internalRaise;
+            internalWave.transform.localPosition = pos;
+
+            previousExternalY = externalWave.transform.localPosition.y;
         }
-        UnityEngine.Debug.Log("totalTightness " + totalTightness);
-
-        float externalRaise = externalWave.transform.localPosition.y - previousExternalY;
-        float internalRaise = externalRaise * (1 - totalTightness);
-        if (internalRaise > 0f && internalRaise * 1.5f + internalWave.transform.localPosition.y < externalRaise + externalWave.transform.localPosition.y)
-        {
-            internalRaise *= 1.5f;
-        }
-
-        //UnityEngine.Debug.Log(average + " " + internalRaise + " " + externalRaise);
-
-        Vector3 pos = internalWave.transform.localPosition;
-        pos.y += internalRaise;
-        internalWave.transform.localPosition = pos;
-
-        previousExternalY = externalWave.transform.localPosition.y;
 
         // damage walls
         for (int i = 0; i < relevantWallSlots.Count; i++)

@@ -58,4 +58,9 @@ public class WallSlot : Interactable
         // UnityEngine.Debug.Log(this.durability + " " + startDurability);
         //UnityEngine.Debug.Log(velocity.dampen + " " + (this.durability / startDurability));
     }
+
+    public void StopLeak()
+    {
+        leakParticle.gameObject.SetActive(false);
+    }
 }
