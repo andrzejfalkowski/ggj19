@@ -208,10 +208,7 @@ public class PlayerController : MonoBehaviour
 
             if (currentInteractionDuration >= pickable.TimeToInteract)
             {
-                carriedPickables.Add(pickable);
-
-                inventorySprite.gameObject.SetActive(true);
-                inventorySprite.sprite = pickable.Sprite;
+                AddToInventory(pickable);
 
                 if (pickablesInRange.Contains(pickable))
                 {
@@ -238,9 +235,7 @@ public class PlayerController : MonoBehaviour
 
         if (currentInteractionDuration >= wallSlot.TimeToInteract)
         {
-            carriedPickables.Remove(pickable);
-            inventorySprite.gameObject.SetActive(false);
-            inventorySprite.sprite = null;
+            RemoveFromInventory(pickable);
 
             wallSlot.BuildWall(pickable);
 
@@ -254,9 +249,7 @@ public class PlayerController : MonoBehaviour
     {
         if (carriedPickables.Contains(pickable))
         {
-            carriedPickables.Remove(pickable);
-            inventorySprite.gameObject.SetActive(false);
-            inventorySprite.sprite = null;
+            RemoveFromInventory(pickable);
 
             pickable.transform.position = this.transform.position;
             pickable.gameObject.SetActive(true);
@@ -269,6 +262,22 @@ public class PlayerController : MonoBehaviour
         }
 
         FinishInteraction();
+    }
+
+    void AddToInventory(Pickable pickable)
+    {
+        carriedPickables.Add(pickable);
+        inventorySprite.sprite = pickable.Sprite;
+        inventorySprite.gameObject.SetActive(true);
+        this.rigidbody.mass += pickable.Weight;
+    }
+
+    void RemoveFromInventory(Pickable pickable)
+    {
+        carriedPickables.Remove(pickable);
+        inventorySprite.gameObject.SetActive(false);
+        inventorySprite.sprite = null;
+        this.rigidbody.mass -= pickable.Weight;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
