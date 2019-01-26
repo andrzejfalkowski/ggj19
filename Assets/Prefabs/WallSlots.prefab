@@ -107,6 +107,35 @@ PrefabInstance:
       propertyPath: aura
       value: 
       objectReference: {fileID: 5896663906181477979}
+    - target: {fileID: 1222073681, guid: a8e1bd6dd26938749afdaf53dda66423, type: 3}
+      propertyPath: leakParticle
+      value: 
+      objectReference: {fileID: 4356046489960447831}
+    - target: {fileID: 7901250676136518673, guid: a8e1bd6dd26938749afdaf53dda66423,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.18301266
+      objectReference: {fileID: 0}
+    - target: {fileID: 7901250676136518673, guid: a8e1bd6dd26938749afdaf53dda66423,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.6830127
+      objectReference: {fileID: 0}
+    - target: {fileID: 7901250676136518673, guid: a8e1bd6dd26938749afdaf53dda66423,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.18301266
+      objectReference: {fileID: 0}
+    - target: {fileID: 7901250676136518673, guid: a8e1bd6dd26938749afdaf53dda66423,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.6830127
+      objectReference: {fileID: 0}
+    - target: {fileID: 7901250676136518673, guid: a8e1bd6dd26938749afdaf53dda66423,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 270
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a8e1bd6dd26938749afdaf53dda66423, type: 3}
 --- !u!4 &1808825312468907945 stripped
@@ -124,6 +153,12 @@ SpriteRenderer:
 --- !u!212 &5896663906181477979 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 1035675731, guid: a8e1bd6dd26938749afdaf53dda66423,
+    type: 3}
+  m_PrefabInstance: {fileID: 5896663905688313352}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &4356046489960447831 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 7901250676150673759, guid: a8e1bd6dd26938749afdaf53dda66423,
     type: 3}
   m_PrefabInstance: {fileID: 5896663905688313352}
   m_PrefabAsset: {fileID: 0}
@@ -202,6 +237,15 @@ PrefabInstance:
       propertyPath: aura
       value: 
       objectReference: {fileID: 5896663906086810300}
+    - target: {fileID: 1222073681, guid: a8e1bd6dd26938749afdaf53dda66423, type: 3}
+      propertyPath: leakParticle
+      value: 
+      objectReference: {fileID: 4356046490021821360}
+    - target: {fileID: 7901250676150673759, guid: a8e1bd6dd26938749afdaf53dda66423,
+        type: 3}
+      propertyPath: ClampVelocityModule.magnitude.scalar
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a8e1bd6dd26938749afdaf53dda66423, type: 3}
 --- !u!4 &1808825312554398542 stripped
@@ -219,6 +263,12 @@ SpriteRenderer:
 --- !u!212 &5896663906086810300 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 1035675731, guid: a8e1bd6dd26938749afdaf53dda66423,
+    type: 3}
+  m_PrefabInstance: {fileID: 5896663905774656239}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &4356046490021821360 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 7901250676150673759, guid: a8e1bd6dd26938749afdaf53dda66423,
     type: 3}
   m_PrefabInstance: {fileID: 5896663905774656239}
   m_PrefabAsset: {fileID: 0}

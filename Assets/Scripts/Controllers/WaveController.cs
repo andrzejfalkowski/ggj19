@@ -69,7 +69,7 @@ public class WaveController : MonoBehaviour
             return;
         }
 
-        float totalTightness = 2f;
+        float totalTightness = 1f;
         for (int i = 0; i < relevantWallSlots.Count; i++)
         {
             totalTightness *= (relevantWallSlots[i].Tightness / 100f);
