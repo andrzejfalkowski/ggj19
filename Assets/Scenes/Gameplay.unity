@@ -1109,25 +1109,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 136066661019847016, guid: 453515bc0eedeb34f8969e253ddc3594,
+    - target: {fileID: 7020190111676322858, guid: 453515bc0eedeb34f8969e253ddc3594,
         type: 3}
-      propertyPath: m_Radius
-      value: 0.45
+      propertyPath: m_havePropertiesChanged
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 2361484156747496178, guid: 453515bc0eedeb34f8969e253ddc3594,
+    - target: {fileID: 7020190111676322858, guid: 453515bc0eedeb34f8969e253ddc3594,
         type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.35
+      propertyPath: m_isInputParsingRequired
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 2361484156747496178, guid: 453515bc0eedeb34f8969e253ddc3594,
+    - target: {fileID: 6049301178285560798, guid: 453515bc0eedeb34f8969e253ddc3594,
         type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.35
+      propertyPath: m_havePropertiesChanged
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 286149137253511015, guid: 453515bc0eedeb34f8969e253ddc3594,
+    - target: {fileID: 6049301178285560798, guid: 453515bc0eedeb34f8969e253ddc3594,
         type: 3}
-      propertyPath: drowningSkills
-      value: 0
+      propertyPath: m_isInputParsingRequired
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 453515bc0eedeb34f8969e253ddc3594, type: 3}
