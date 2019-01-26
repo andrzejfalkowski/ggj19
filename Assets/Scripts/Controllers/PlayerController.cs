@@ -36,6 +36,9 @@ public class PlayerController : MonoBehaviour
     private List<WallSlot> wallSlotsInRange = new List<WallSlot>();
 
     [SerializeField]
+    private SpriteRenderer inventorySprite;
+
+    [SerializeField]
     private bool grounded = false;
 
     public bool Grounded { get { return grounded; } }
@@ -207,6 +210,9 @@ public class PlayerController : MonoBehaviour
             {
                 carriedPickables.Add(pickable);
 
+                inventorySprite.gameObject.SetActive(true);
+                inventorySprite.sprite = pickable.Sprite;
+
                 if (pickablesInRange.Contains(pickable))
                 {
                     pickablesInRange.Remove(pickable);
@@ -233,6 +239,8 @@ public class PlayerController : MonoBehaviour
         if (currentInteractionDuration >= wallSlot.TimeToInteract)
         {
             carriedPickables.Remove(pickable);
+            inventorySprite.gameObject.SetActive(false);
+            inventorySprite.sprite = null;
 
             wallSlot.BuildWall(pickable);
 
@@ -247,6 +255,8 @@ public class PlayerController : MonoBehaviour
         if (carriedPickables.Contains(pickable))
         {
             carriedPickables.Remove(pickable);
+            inventorySprite.gameObject.SetActive(false);
+            inventorySprite.sprite = null;
 
             pickable.transform.position = this.transform.position;
             pickable.gameObject.SetActive(true);
