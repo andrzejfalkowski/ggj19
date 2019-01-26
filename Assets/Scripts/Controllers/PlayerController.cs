@@ -185,6 +185,8 @@ public class PlayerController : MonoBehaviour
 
             wallSlot.BuildWall(pickable);
 
+            GameObject.Destroy(pickable.gameObject);
+
             FinishInteraction();
         }
     }
