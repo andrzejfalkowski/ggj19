@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     private float maxSpeed = 100f;
 
     private Rigidbody2D rigidbody;
+    private Animator animator;
 
     private List<Pickable> carriedPickables = new List<Pickable>();
     const int carriedPickablesLimit = 1;
@@ -38,6 +39,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         this.rigidbody = this.GetComponent<Rigidbody2D>();
+        this.animator = this.GetComponent<Animator>();
     }
 
     void Update()
@@ -67,8 +69,16 @@ public class PlayerController : MonoBehaviour
                 interactionLock = false;
             }
         }
+        SetAnimationValues();
     }
 
+    private void SetAnimationValues()
+    {
+        animator.SetBool("Moving", (this.rigidbody.velocity != Vector2.zero));
+        animator.SetBool("Falling", (this.rigidbody.velocity.y < 0));
+        animator.SetBool("Grounded", grounded);
+        animator.SetBool("Interacting", IsInteracting());
+    }
 
     void FixedUpdate()
     {
@@ -86,16 +96,8 @@ public class PlayerController : MonoBehaviour
 
     private void Move(float side)
     {
-        if (!IsAtMaxSpeed())
-        {
-            this.rigidbody.velocity = new Vector2(Mathf.Clamp(this.rigidbody.velocity.x, -maxSpeed, maxSpeed), this.rigidbody.velocity.y);
-            this.rigidbody.AddForce(new Vector2(side * movementSpeed * (grounded ? 1f : jumpControlModifier), 0));           
-        }
-    }
-
-    private bool IsAtMaxSpeed()
-    {
-        return false;
+        this.rigidbody.velocity = new Vector2(Mathf.Clamp(this.rigidbody.velocity.x, -maxSpeed, maxSpeed), this.rigidbody.velocity.y);
+        this.rigidbody.AddForce(new Vector2(side * movementSpeed * (grounded ? 1f : jumpControlModifier), 0));           
     }
 
     private void Jump()
@@ -138,6 +140,11 @@ public class PlayerController : MonoBehaviour
     {
         StopInteraction();
         interactionLock = true;
+    }
+
+    private bool IsInteracting()
+    {
+        return currentInteractionDuration > 0f;
     }
 
     private void PickUp(Pickable pickable)
