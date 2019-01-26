@@ -763,7 +763,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementSpeed: 150
   jumpControlModifier: 0.5
-  jumpPower: 800
+  jumpPower: 850
   longJumpAdditionalPower: 8000
   longJumpTimeThresholdStop: 0.12
   longJumpTimeThresholdStart: 0.05
