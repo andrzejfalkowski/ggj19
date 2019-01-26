@@ -22,6 +22,7 @@ public class Interactable : MonoBehaviour
 
     [SerializeField]
     protected float value = 100f;
+    public float Value { get { return value; } }
 
     [SerializeField]
     private SpriteRenderer aura;

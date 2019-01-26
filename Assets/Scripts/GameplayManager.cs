@@ -2,15 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using System;
 
 public class GameplayManager : MonoBehaviour
 {
     public static GameplayManager Instance = null;
 
     public PlayerController Player;
+    public WaveController Waves;
 
     public EGameplayPhase CurrentPhase = EGameplayPhase.Intro;
     public EWaveType CurrentWave = EWaveType.Flood;
+
+    
+
     private void Awake()
     {
         if (Instance == null)
@@ -20,6 +25,10 @@ public class GameplayManager : MonoBehaviour
             if (Player == null)
             {
                 Player = FindObjectOfType<PlayerController>();
+            }
+            if (Waves == null)
+            {
+                Waves = FindObjectOfType<WaveController>();
             }
         }
         else
@@ -40,18 +49,24 @@ public class GameplayManager : MonoBehaviour
         {
             case EGameplayPhase.Intro:
             case EGameplayPhase.Wave:
+                CurrentWave = (EWaveType)UnityEngine.Random.Range(0, (int)EWaveType.COUNT);
                 CurrentPhase = EGameplayPhase.Preparation;
-                DOVirtual.DelayedCall(30f, ()=> { NextPhase(); }).SetId("NextPhase");
-                DOTween.To(()=> 30f, (value) => { UIManager.Instance.ChangeTimerLabel(value) ; }, 0f, 30f);
+                DOVirtual.DelayedCall(10f, ()=> { NextPhase(); }).SetId("NextPhase");
+                DOTween.To(()=> 10f, (value) => { UIManager.Instance.ChangeTimerLabel(value) ; }, 0f, 10f);
                 break;
             case EGameplayPhase.Preparation:
-                CurrentWave = (EWaveType)UnityEngine.Random.Range(0, (int)EWaveType.COUNT);
                 CurrentPhase = EGameplayPhase.Wave;
                 DOVirtual.DelayedCall(30f, () => { NextPhase(); }).SetId("NextPhase"); ;
-                DOTween.To(() => 30f, (value) => { UIManager.Instance.ChangeTimerLabel(value); }, 0f, 30f);
+                //DOTween.To(() => 30f, (value) => { UIManager.Instance.ChangeTimerLabel(value); }, 0f, 30f);
+                Waves.StartInflow();
                 break;
         }
 
         UIManager.Instance.ChangePhaseLabel(CurrentWave, CurrentPhase);
+    }
+
+    public void SubscribeWallSlot(WallSlot wallSlot)
+    {
+        Waves.WallSlots.Add(wallSlot);
     }
 }
