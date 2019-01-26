@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class WallSlot : Interactable
 {
@@ -9,12 +10,16 @@ public class WallSlot : Interactable
     private Sprite defaultSprite;
     private float startDurability;
 
+    [SerializeField]
+    private Image HPBar;
+
     private void Start()
     {
         GameplayManager.Instance.SubscribeWallSlot(this);
         defaultSprite = this.spriteRenderer.sprite;
         this.durability = startDurability = 0f;
 
+        HPBar.gameObject.SetActive(false);
         SetLeakPower();
     }
 
@@ -25,6 +30,9 @@ public class WallSlot : Interactable
         this.tightness = pickable.Tightness;
         this.durability = pickable.Durability;
         startDurability = pickable.Durability;
+
+        HPBar.fillAmount = this.durability / startDurability;
+        HPBar.gameObject.SetActive(this.durability > 0f && startDurability > 0f);
     }
 
     public void DamageWall(float damage)
@@ -33,6 +41,10 @@ public class WallSlot : Interactable
         this.durability -= damage;
         //UnityEngine.Debug.Log(this.durability + " " + startDurability);
         SetLeakPower();
+
+        HPBar.fillAmount = this.durability / startDurability;
+        HPBar.gameObject.SetActive(this.durability > 0f && startDurability > 0f);
+
         if (this.durability <= 0f)
         {
             DestroyWall();

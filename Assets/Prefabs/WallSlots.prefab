@@ -99,18 +99,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1222073681, guid: a8e1bd6dd26938749afdaf53dda66423, type: 3}
-      propertyPath: spriteRenderer
-      value: 
-      objectReference: {fileID: 7978486429319911626}
-    - target: {fileID: 1222073681, guid: a8e1bd6dd26938749afdaf53dda66423, type: 3}
-      propertyPath: aura
-      value: 
-      objectReference: {fileID: 5896663906181477979}
-    - target: {fileID: 1222073681, guid: a8e1bd6dd26938749afdaf53dda66423, type: 3}
-      propertyPath: leakParticle
-      value: 
-      objectReference: {fileID: 4356046489960447831}
     - target: {fileID: 7901250676136518673, guid: a8e1bd6dd26938749afdaf53dda66423,
         type: 3}
       propertyPath: m_LocalRotation.x
@@ -136,7 +124,35 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.y
       value: 270
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 1222073681, guid: a8e1bd6dd26938749afdaf53dda66423, type: 3}
+      propertyPath: spriteRenderer
+      value: 
+      objectReference: {fileID: 7978486429319911626}
+    - target: {fileID: 1222073681, guid: a8e1bd6dd26938749afdaf53dda66423, type: 3}
+      propertyPath: aura
+      value: 
+      objectReference: {fileID: 5896663906181477979}
+    - target: {fileID: 1222073681, guid: a8e1bd6dd26938749afdaf53dda66423, type: 3}
+      propertyPath: leakParticle
+      value: 
+      objectReference: {fileID: 4356046489960447831}
+    - target: {fileID: 9054432867542032065, guid: a8e1bd6dd26938749afdaf53dda66423,
+        type: 3}
+      propertyPath: followed
+      value: 
+      objectReference: {fileID: 1808825312468907945}
+    - target: {fileID: 7382452754377066781, guid: a8e1bd6dd26938749afdaf53dda66423,
+        type: 3}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7382452754377066781, guid: a8e1bd6dd26938749afdaf53dda66423,
+        type: 3}
+      propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 9054432867542032065, guid: a8e1bd6dd26938749afdaf53dda66423, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: a8e1bd6dd26938749afdaf53dda66423, type: 3}
 --- !u!4 &1808825312468907945 stripped
 Transform:
@@ -229,46 +245,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1222073681, guid: a8e1bd6dd26938749afdaf53dda66423, type: 3}
-      propertyPath: spriteRenderer
-      value: 
-      objectReference: {fileID: 7978486429390527533}
-    - target: {fileID: 1222073681, guid: a8e1bd6dd26938749afdaf53dda66423, type: 3}
-      propertyPath: aura
-      value: 
-      objectReference: {fileID: 5896663906086810300}
-    - target: {fileID: 1222073681, guid: a8e1bd6dd26938749afdaf53dda66423, type: 3}
-      propertyPath: leakParticle
-      value: 
-      objectReference: {fileID: 4356046490021821360}
-    - target: {fileID: 7901250676150673759, guid: a8e1bd6dd26938749afdaf53dda66423,
+    - target: {fileID: 7382452754377066781, guid: a8e1bd6dd26938749afdaf53dda66423,
         type: 3}
-      propertyPath: ClampVelocityModule.magnitude.scalar
-      value: 3
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7382452754377066781, guid: a8e1bd6dd26938749afdaf53dda66423,
+        type: 3}
+      propertyPath: m_isInputParsingRequired
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a8e1bd6dd26938749afdaf53dda66423, type: 3}
 --- !u!4 &1808825312554398542 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5246435856307906977, guid: a8e1bd6dd26938749afdaf53dda66423,
-    type: 3}
-  m_PrefabInstance: {fileID: 5896663905774656239}
-  m_PrefabAsset: {fileID: 0}
---- !u!212 &7978486429390527533 stripped
-SpriteRenderer:
-  m_CorrespondingSourceObject: {fileID: 4570150550062499522, guid: a8e1bd6dd26938749afdaf53dda66423,
-    type: 3}
-  m_PrefabInstance: {fileID: 5896663905774656239}
-  m_PrefabAsset: {fileID: 0}
---- !u!212 &5896663906086810300 stripped
-SpriteRenderer:
-  m_CorrespondingSourceObject: {fileID: 1035675731, guid: a8e1bd6dd26938749afdaf53dda66423,
-    type: 3}
-  m_PrefabInstance: {fileID: 5896663905774656239}
-  m_PrefabAsset: {fileID: 0}
---- !u!198 &4356046490021821360 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 7901250676150673759, guid: a8e1bd6dd26938749afdaf53dda66423,
     type: 3}
   m_PrefabInstance: {fileID: 5896663905774656239}
   m_PrefabAsset: {fileID: 0}
