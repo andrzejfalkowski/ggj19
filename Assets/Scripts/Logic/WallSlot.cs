@@ -4,11 +4,9 @@ using UnityEngine;
 
 public class WallSlot : Interactable
 {
-    [SerializeField]
-    SpriteRenderer sprite;
-
     public void BuildWall(Pickable pickable)
     {
-
+        this.spriteRenderer.sprite = pickable.Sprite;
+        this.resourceType = pickable.ResourceType;
     }
 }

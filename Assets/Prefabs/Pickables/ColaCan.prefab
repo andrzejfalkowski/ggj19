@@ -126,8 +126,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: Soda Can
+  spriteRenderer: {fileID: 3360012614726979804}
   resourceType: 0
-  timeToPickUp: 0.3
+  timeToInteract: 0.3
   value: 100
   aura: {fileID: 5495107396823605378}
 --- !u!1 &3360012614726979802

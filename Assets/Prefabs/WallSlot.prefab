@@ -231,7 +231,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: Wall
+  spriteRenderer: {fileID: 4570150550062499522}
   resourceType: 0
   timeToInteract: 0.3
   value: 100
   aura: {fileID: 1035675731}
+  spriteRenderer: {fileID: 0}
