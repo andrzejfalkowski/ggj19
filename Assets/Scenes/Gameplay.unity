@@ -903,16 +903,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5709829036209115159, guid: c15db8dd7b6db584e8f50ba20b8fa281,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -3.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 5709829036209115159, guid: c15db8dd7b6db584e8f50ba20b8fa281,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 5.75
-      objectReference: {fileID: 0}
     - target: {fileID: 3685764841682248392, guid: c15db8dd7b6db584e8f50ba20b8fa281,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -923,6 +913,16 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5709829036209115159, guid: c15db8dd7b6db584e8f50ba20b8fa281,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -3.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 5709829036209115159, guid: c15db8dd7b6db584e8f50ba20b8fa281,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 5.75
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c15db8dd7b6db584e8f50ba20b8fa281, type: 3}
 --- !u!1001 &7297407301146839716
@@ -932,11 +932,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1391235283}
     m_Modifications:
-    - target: {fileID: 4605897213917580993, guid: 453515bc0eedeb34f8969e253ddc3594,
-        type: 3}
-      propertyPath: m_Name
-      value: Rat
-      objectReference: {fileID: 0}
     - target: {fileID: 2219939067268668285, guid: 453515bc0eedeb34f8969e253ddc3594,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -992,10 +987,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4605897213917580993, guid: 453515bc0eedeb34f8969e253ddc3594,
+        type: 3}
+      propertyPath: m_Name
+      value: Rat
+      objectReference: {fileID: 0}
     - target: {fileID: 136066661019847016, guid: 453515bc0eedeb34f8969e253ddc3594,
         type: 3}
       propertyPath: m_Radius
       value: 0.45
+      objectReference: {fileID: 0}
+    - target: {fileID: 2361484156747496178, guid: 453515bc0eedeb34f8969e253ddc3594,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 2361484156747496178, guid: 453515bc0eedeb34f8969e253ddc3594,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.35
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 453515bc0eedeb34f8969e253ddc3594, type: 3}
