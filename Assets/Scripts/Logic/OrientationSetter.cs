@@ -30,7 +30,6 @@ public class OrientationSetter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(rigidbody.velocity);
         if (Mathf.Abs(rigidbody.velocity.x) < orientationChangeSpeedThreshold)
         {
             return;
