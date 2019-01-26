@@ -47,12 +47,12 @@ PrefabInstance:
     - target: {fileID: 8045696988392480863, guid: f4b20fcf7f228e14286363aa87f64a5e,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 7
+      value: -3.2
       objectReference: {fileID: 0}
     - target: {fileID: 8045696988392480863, guid: f4b20fcf7f228e14286363aa87f64a5e,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2
+      value: 1.19
       objectReference: {fileID: 0}
     - target: {fileID: 8045696988392480863, guid: f4b20fcf7f228e14286363aa87f64a5e,
         type: 3}
@@ -127,7 +127,7 @@ PrefabInstance:
     - target: {fileID: 3360012613693958547, guid: 0d8f41956da0223439bd812649070dac,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.76
+      value: 0.58
       objectReference: {fileID: 0}
     - target: {fileID: 3360012613693958547, guid: 0d8f41956da0223439bd812649070dac,
         type: 3}
@@ -176,6 +176,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3360012613693958546, guid: 0d8f41956da0223439bd812649070dac,
         type: 3}
+      propertyPath: spriteRenderer
+      value: 
+      objectReference: {fileID: 5438086445258619524}
+    - target: {fileID: 3360012613693958546, guid: 0d8f41956da0223439bd812649070dac,
+        type: 3}
       propertyPath: aura
       value: 
       objectReference: {fileID: 2996112512126634714}
@@ -184,6 +189,12 @@ PrefabInstance:
 --- !u!4 &5438086444095423435 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3360012613693958547, guid: 0d8f41956da0223439bd812649070dac,
+    type: 3}
+  m_PrefabInstance: {fileID: 7338298265821227608}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &5438086445258619524 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 3360012614726979804, guid: 0d8f41956da0223439bd812649070dac,
     type: 3}
   m_PrefabInstance: {fileID: 7338298265821227608}
   m_PrefabAsset: {fileID: 0}
