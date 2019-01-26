@@ -71,7 +71,7 @@ public class WaveController : MonoBehaviour
         float total = 0f;
         for (int i = 0; i < relevantWallSlots.Count; i++)
         {
-            total += relevantWallSlots[i].Value;
+            total += relevantWallSlots[i].Tightness;
         }
 
         float average = total / (float)relevantWallSlots.Count;
@@ -84,5 +84,11 @@ public class WaveController : MonoBehaviour
         internalWave.transform.localPosition = pos;
 
         previousExternalY = externalWave.transform.localPosition.y;
+
+        // damage walls
+        for (int i = 0; i < relevantWallSlots.Count; i++)
+        {
+            relevantWallSlots[i].DamageWall(10f * Time.deltaTime);
+        }
     }
 }

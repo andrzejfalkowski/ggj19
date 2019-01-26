@@ -234,5 +234,6 @@ MonoBehaviour:
   spriteRenderer: {fileID: 4570150550062499522}
   resourceType: 0
   timeToInteract: 2
-  value: 0
+  tightness: 0
+  durability: 0
   aura: {fileID: 1035675731}
