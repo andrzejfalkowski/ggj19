@@ -84,6 +84,9 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        if (GameplayManager.Instance.CurrentPhase == EGameplayPhase.GameOver)
+            return;
+
         moving = 0;
         moving += (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A)) ? -1 : 0;
         moving += (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D)) ? 1 : 0;
@@ -151,6 +154,11 @@ public class PlayerController : MonoBehaviour
         {
             oxygen = Mathf.Clamp01(oxygen - Time.deltaTime * drowningSkills);
             this.rigidbody.gravityScale = defaultGravity / 2f;
+
+            if (oxygen <= 0f)
+            {
+                GameplayManager.Instance.GameOver();
+            }
         }
         else
         {
@@ -171,6 +179,9 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (GameplayManager.Instance.CurrentPhase == EGameplayPhase.GameOver)
+            return;
+
         if (jumping || longJumping)
         {
             Jump();

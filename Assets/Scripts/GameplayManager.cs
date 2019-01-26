@@ -14,8 +14,6 @@ public class GameplayManager : MonoBehaviour
     public EGameplayPhase CurrentPhase = EGameplayPhase.Intro;
     public EWaveType CurrentWave = EWaveType.Flood;
 
-    
-
     private void Awake()
     {
         if (Instance == null)
@@ -68,5 +66,11 @@ public class GameplayManager : MonoBehaviour
     public void SubscribeWallSlot(WallSlot wallSlot)
     {
         Waves.WallSlots.Add(wallSlot);
+    }
+
+    public void GameOver()
+    {
+        CurrentPhase = EGameplayPhase.GameOver;
+        UIManager.Instance.GameOver();
     }
 }

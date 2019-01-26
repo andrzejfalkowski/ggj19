@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class UIManager : MonoBehaviour
 {
@@ -20,6 +21,10 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private Image oxygenBar;
 
+    [SerializeField]
+    private GameObject gameOverPanel;
+
+
     private void Awake()
     {
         if (Instance == null)
@@ -27,6 +32,7 @@ public class UIManager : MonoBehaviour
             Instance = this;
 
             ChangeInteractionProgress(0f);
+            gameOverPanel.SetActive(false);
         }
         else
         {
@@ -79,5 +85,16 @@ public class UIManager : MonoBehaviour
         oxygenBar.fillAmount = value;
 
         oxygenBar.gameObject.SetActive(value < 1f);
+    }
+
+    public void GameOver()
+    {
+        gameOverPanel.SetActive(true);
+    }
+
+    public void PlayAgain()
+    {
+        DOTween.KillAll(false);
+        UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
     }
 }

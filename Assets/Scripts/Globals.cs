@@ -16,7 +16,8 @@ using UnityEngine;
     {
         Intro,
         Preparation,
-        Wave
+        Wave,
+        GameOver
     }
 
     public enum EWaveType
