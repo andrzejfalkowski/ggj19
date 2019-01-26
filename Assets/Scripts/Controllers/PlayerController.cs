@@ -28,6 +28,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private bool grounded = false;
 
+    private List<Collider2D> currentlyColliding = new List<Collider2D>();
+
     private bool jumping = false;
     private int moving = 0;
 
@@ -222,6 +224,10 @@ public class PlayerController : MonoBehaviour
 #if DEBUG_JUMPS
         UnityEngine.Debug.Log("Touched ground!");
 #endif
+        if (!currentlyColliding.Contains(collision.collider))
+        {
+            currentlyColliding.Add(collision.collider);
+        }
         grounded = true;
     }
 
@@ -230,7 +236,12 @@ public class PlayerController : MonoBehaviour
 #if DEBUG_JUMPS
         UnityEngine.Debug.Log("Stopped touching ground!");
 #endif
-        grounded = false;
+
+        if (currentlyColliding.Contains(collision.collider))
+        {
+            currentlyColliding.Remove(collision.collider);
+        }
+        grounded = (currentlyColliding.Count != 0);
     }
 
     private void OnTriggerEnter2D(Collider2D collider)
