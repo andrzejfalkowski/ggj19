@@ -7,6 +7,8 @@ public class CameraController : MonoBehaviour
 {
     [SerializeField]
     private float snapDuration = 0.1f;
+    [SerializeField]
+    private Vector3 offset = Vector3.zero;
 
     private PlayerController player;
 
@@ -22,9 +24,9 @@ public class CameraController : MonoBehaviour
         DOTween.Kill("MoveCamera");
 
         Vector3 pos = this.transform.position;
-        pos.x = player.transform.position.x;
+        pos.x = player.transform.position.x + offset.x;
         this.transform.position = pos;
 
-        this.transform.DOMoveY(player.transform.position.y, snapDuration).SetId("MoveCamera").SetUpdate(UpdateType.Late).SetEase(Ease.Linear);
+        this.transform.DOMoveY(player.transform.position.y + offset.y, snapDuration).SetId("MoveCamera").SetUpdate(UpdateType.Late).SetEase(Ease.Linear);
     }
 }
