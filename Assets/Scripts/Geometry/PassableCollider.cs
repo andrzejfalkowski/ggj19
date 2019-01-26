@@ -35,7 +35,8 @@ public class PassableCollider : MonoBehaviour
 
     private bool IsMidAirAndAscending()
     {
-        return !GameplayManager.Instance.Player.Grounded
+        return (!GameplayManager.Instance.Player.Grounded
+                || GameplayManager.Instance.Player.transform.position.y < this.transform.position.y)
             && !GameplayManager.Instance.Player.IsFalling()
             && !playerIsTouching;
     }
