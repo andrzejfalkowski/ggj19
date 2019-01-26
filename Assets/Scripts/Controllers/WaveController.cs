@@ -65,19 +65,25 @@ public class WaveController : MonoBehaviour
 
         if (relevantWallSlots.Count == 0)
         {
+            previousExternalY = externalWave.transform.localPosition.y;
             return;
         }
 
-        float total = 0f;
+        float totalTightness = 2f;
         for (int i = 0; i < relevantWallSlots.Count; i++)
         {
-            total += relevantWallSlots[i].Tightness;
+            totalTightness *= (relevantWallSlots[i].Tightness / 100f);
+        }
+        UnityEngine.Debug.Log("totalTightness " + totalTightness);
+
+        float externalRaise = externalWave.transform.localPosition.y - previousExternalY;
+        float internalRaise = externalRaise * (1 - totalTightness);
+        if (internalRaise > 0f && internalRaise * 1.5f + internalWave.transform.localPosition.y < externalRaise + externalWave.transform.localPosition.y)
+        {
+            internalRaise *= 1.5f;
         }
 
-        float average = total / (float)relevantWallSlots.Count;
-        float externalRaise = externalWave.transform.localPosition.y - previousExternalY;
-        float internalRaise = externalRaise * (100f - average) / 100f;
-        UnityEngine.Debug.Log(average + " " + internalRaise + " " + externalRaise);
+        //UnityEngine.Debug.Log(average + " " + internalRaise + " " + externalRaise);
 
         Vector3 pos = internalWave.transform.localPosition;
         pos.y += internalRaise;
