@@ -20,7 +20,8 @@ public class UIManager : MonoBehaviour
 
     [SerializeField]
     private GameObject gameOverPanel;
-
+    [SerializeField]
+    private GameObject gameWinPanel;
 
     private void Awake()
     {
@@ -29,6 +30,7 @@ public class UIManager : MonoBehaviour
             Instance = this;
 
             gameOverPanel.SetActive(false);
+            gameWinPanel.SetActive(false);
         }
         else
         {
@@ -65,6 +67,11 @@ public class UIManager : MonoBehaviour
     }
 
     public void GameOver()
+    {
+        gameOverPanel.SetActive(true);
+    }
+
+    public void GameWin()
     {
         gameOverPanel.SetActive(true);
     }

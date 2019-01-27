@@ -14,6 +14,8 @@ public class GameplayManager : MonoBehaviour
     public EGameplayPhase CurrentPhase = EGameplayPhase.Intro;
     public EWaveType CurrentWave = EWaveType.Flood;
 
+    public int WinItems = 0;
+
     private void Awake()
     {
         if (Instance == null)
@@ -86,5 +88,19 @@ public class GameplayManager : MonoBehaviour
         CurrentPhase = EGameplayPhase.GameOver;
         UIManager.Instance.GameOver();
         MusicManager.Instance.PlayGameOver(); 
+    }
+
+    public void GameWin()
+    {
+        CurrentPhase = EGameplayPhase.GameOver;
+        UIManager.Instance.GameWin();
+        //MusicManager.Instance.PlayGameOver();
+    }
+
+    public void WinItem()
+    {
+        WinItems++;
+        if (WinItems > 2)
+            GameWin();
     }
 }

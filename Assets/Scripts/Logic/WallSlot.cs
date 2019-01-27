@@ -29,7 +29,7 @@ public class WallSlot : Interactable
         SetLeakPower();
     }
 
-    public void BuildWall(Pickable pickable)
+    public virtual void BuildWall(Pickable pickable)
     {
         //this.spriteRenderer.sprite = pickable.Sprite;
         this.spriteRenderer.sprite = sprites[(int)pickable.ResourceType];
@@ -43,7 +43,7 @@ public class WallSlot : Interactable
         Exclamation.gameObject.SetActive(this.durability > 0f);
     }
 
-    public void DamageWall(float damage)
+    public virtual void DamageWall(float damage)
     {
         //UnityEngine.Debug.Log(this.durability + " " + startDurability);
         this.durability -= damage;
@@ -71,7 +71,7 @@ public class WallSlot : Interactable
 
     }
 
-    void SetLeakPower()
+    protected virtual void SetLeakPower()
     {
         leakParticle.gameObject.SetActive(this.durability > 0f);
 

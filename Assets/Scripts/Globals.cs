@@ -7,8 +7,11 @@ using UnityEngine;
         Metal,
         Plastic,
         Paper,
-        Rubber,
-        Sharp,
+
+        Plant,
+        Chair,
+        Stamp,
+
         COUNT
 }
 

@@ -338,12 +338,27 @@ public class PlayerController : MonoBehaviour
 
     private void BuildWall(WallSlot wallSlot, Pickable pickable)
     {
+        if (wallSlot.GetType() == typeof(SpecialSlot))
+        {
+            if ((wallSlot as SpecialSlot).AcceptedResource != pickable.ResourceType)
+            {
+                return;
+            }
+        }
+
+
 #if DEBUG_INTERACTION
         UnityEngine.Debug.Log("Install in wall");
 #endif
         currentInteractionDuration += Time.deltaTime;
         ChangeInteractionProgress(currentInteractionDuration / wallSlot.TimeToInteract);
-        ChangeInteractionLabel("Building Wall...");
+
+        if (wallSlot.GetType() == typeof(SpecialSlot))
+        {
+            ChangeInteractionLabel("Decorating...");
+        }
+        else
+            ChangeInteractionLabel("Building Wall...");
 
         //UnityEngine.Debug.Log((pickable.BuildSound != null));
         if (pickable.BuildSound != null)
