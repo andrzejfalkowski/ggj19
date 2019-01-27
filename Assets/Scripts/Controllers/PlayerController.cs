@@ -22,6 +22,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float longJumpTimeThresholdStart = 0.1f;
     [SerializeField]
+    private float jumpingSpeedModifier = 0.7f;
+    [SerializeField]
     private float maxSpeed = 100f;
     [SerializeField]
     private float runAnimationMovementThreshold = 0.1f;
@@ -220,7 +222,12 @@ public class PlayerController : MonoBehaviour
 
     private void Move(float side)
     {
-        this.rigidbody.velocity = new Vector2(Mathf.Clamp(this.rigidbody.velocity.x, -maxSpeed, maxSpeed), this.rigidbody.velocity.y);
+        var xVelocity = Mathf.Clamp(this.rigidbody.velocity.x, -maxSpeed, maxSpeed);
+        if (!grounded)
+        {
+            xVelocity *= jumpingSpeedModifier;
+        }
+        this.rigidbody.velocity = new Vector2(xVelocity, this.rigidbody.velocity.y);
         this.rigidbody.AddForce(new Vector2(side * movementSpeed * (grounded ? 1f : jumpControlModifier), 0));           
     }
 

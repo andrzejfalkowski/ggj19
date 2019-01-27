@@ -787,6 +787,21 @@ PrefabInstance:
       propertyPath: maxLevel
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 6835357420262165149, guid: 5cf1a99a285cbbb438b3b12d296f930d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6835357420262165149, guid: 5cf1a99a285cbbb438b3b12d296f930d,
+        type: 3}
+      propertyPath: outflowDuration
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6835357420262165149, guid: 5cf1a99a285cbbb438b3b12d296f930d,
+        type: 3}
+      propertyPath: inflowDuration
+      value: 100000
+      objectReference: {fileID: 0}
     - target: {fileID: 657528227, guid: 5cf1a99a285cbbb438b3b12d296f930d, type: 3}
       propertyPath: m_Sprite
       value: 

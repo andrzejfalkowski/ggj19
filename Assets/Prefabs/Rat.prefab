@@ -1273,13 +1273,14 @@ MonoBehaviour:
   jumpControlModifier: 0.5
   jumpPower: 850
   longJumpAdditionalPower: 8000
-  longJumpTimeThresholdStop: 0.12
-  longJumpTimeThresholdStart: 0.05
+  longJumpTimeThresholdStop: 0.15
+  longJumpTimeThresholdStart: 0.08
+  jumpingSpeedModifier: 0.8
   maxSpeed: 8
   runAnimationMovementThreshold: 0.1
   inventorySprite: {fileID: 1216610449192625812}
   grounded: 1
-  inNest: 0
+  inNest: 1
   isUnderwater: 0
   drowningSkills: 0
   breathingSkills: 0.1
@@ -1301,7 +1302,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 8
+  m_GravityScale: 9
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
