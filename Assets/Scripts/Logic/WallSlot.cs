@@ -16,8 +16,6 @@ public class WallSlot : Interactable
     [SerializeField]
     private List<Sprite> sprites;
 
-
-
     private void Start()
     {
         GameplayManager.Instance.SubscribeWallSlot(this);
@@ -36,6 +34,7 @@ public class WallSlot : Interactable
         this.tightness = pickable.Tightness;
         this.durability = pickable.Durability;
         startDurability = pickable.Durability;
+        this.DestructionSound = pickable.DestructionSound;
 
         HPBar.fillAmount = this.durability / startDurability;
         HPBar.gameObject.SetActive(this.durability > 0f && startDurability > 0f);
@@ -62,6 +61,9 @@ public class WallSlot : Interactable
         this.spriteRenderer.sprite = defaultSprite;
         this.tightness = 0f;
         this.durability = 0f;
+
+        if (DestructionSound != null)
+            MusicManager.Instance.PlaySFX(DestructionSound);
     }
 
     void SetLeakPower()

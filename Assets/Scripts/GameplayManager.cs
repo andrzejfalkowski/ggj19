@@ -74,5 +74,6 @@ public class GameplayManager : MonoBehaviour
     {
         CurrentPhase = EGameplayPhase.GameOver;
         UIManager.Instance.GameOver();
+        MusicManager.Instance.PlayGameOver(); 
     }
 }

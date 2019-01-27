@@ -16,6 +16,12 @@ public class MusicManager : MonoBehaviour
     [SerializeField]
     AudioSource musicAction;
 
+    [SerializeField]
+    AudioSource gameOverMusic;
+
+    [SerializeField]
+    AudioSource sfx;
+
     private void Awake()
     {
         if (Instance == null)
@@ -34,9 +40,19 @@ public class MusicManager : MonoBehaviour
         musicAction.DOFade(play ? 1f : 0f, 3f);
     }
 
+    public void PlayGameOver()
+    {
+        gameOverMusic.Play();
+    }
+
     public void PlaySFX(string name)
     {
 
+    }
+
+    public void PlaySFX(AudioClip clip)
+    {
+        sfx.PlayOneShot(clip);
     }
 
     // Start is called before the first frame update

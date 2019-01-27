@@ -132,7 +132,12 @@ MonoBehaviour:
   tightness: 100
   durability: 100
   aura: {fileID: 5495107396823605378}
+  label: {fileID: 0}
+  BuildSound: {fileID: 8300000, guid: 36e470b190166e0499bf30abcae16801, type: 3}
+  DestructionSound: {fileID: 8300000, guid: c1b3d04727c12304fadf876dbeb63867, type: 3}
   Weight: 0.4
+  PickUpSound: {fileID: 8300000, guid: 79e8c3f2eb7cbaf499597b5c26283e50, type: 3}
+  DropSound: {fileID: 8300000, guid: 2d7e7ca7a41f4c747bc8281deb26de28, type: 3}
 --- !u!1 &3360012614726979802
 GameObject:
   m_ObjectHideFlags: 0

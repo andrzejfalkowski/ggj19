@@ -6,4 +6,6 @@ using DG.Tweening;
 public class Pickable : Interactable
 {
     public float Weight = 0.5f;
+    public AudioClip PickUpSound;
+    public AudioClip DropSound;
 }

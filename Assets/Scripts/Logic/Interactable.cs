@@ -36,6 +36,9 @@ public class Interactable : MonoBehaviour
 
     private Spawner spawner;
 
+    public AudioClip BuildSound;
+    public AudioClip DestructionSound;
+
     private void Start()
     {
         Unhighlight();

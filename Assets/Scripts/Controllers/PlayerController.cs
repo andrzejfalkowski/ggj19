@@ -66,6 +66,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private Image oxygenBar;
 
+    [SerializeField]
+    private AudioSource interactionLoop;
+
     public bool IsFalling()
     {
         return (this.rigidbody != false
@@ -281,6 +284,10 @@ public class PlayerController : MonoBehaviour
 
     private void StopInteraction()
     {
+        interactionLoop.Stop();
+        interactionLoop.clip = null;
+        interactionLoop.volume = 0f;
+
         currentInteractionDuration = 0f;
         ChangeInteractionProgress(0f);
     }
@@ -312,6 +319,10 @@ public class PlayerController : MonoBehaviour
             {
                 AddToInventory(pickable);
 
+
+                if (pickable.PickUpSound != null)
+                    MusicManager.Instance.PlaySFX(pickable.PickUpSound);
+
                 if (pickablesInRange.Contains(pickable))
                 {
                     pickablesInRange.Remove(pickable);
@@ -333,7 +344,18 @@ public class PlayerController : MonoBehaviour
 #endif
         currentInteractionDuration += Time.deltaTime;
         ChangeInteractionProgress(currentInteractionDuration / wallSlot.TimeToInteract);
-        ChangeInteractionLabel("BuildingWall...");
+        ChangeInteractionLabel("Building Wall...");
+
+        UnityEngine.Debug.Log((pickable.BuildSound != null));
+        if (pickable.BuildSound != null)
+        {
+            interactionLoop.clip = pickable.BuildSound;
+            UnityEngine.Debug.Log(interactionLoop.clip.name);
+            interactionLoop.volume = 1f;
+            if(!interactionLoop.isPlaying)
+                interactionLoop.Play();
+        }
+        
 
         if (currentInteractionDuration >= wallSlot.TimeToInteract)
         {
@@ -355,6 +377,9 @@ public class PlayerController : MonoBehaviour
 
             pickable.transform.position = this.transform.position;
             pickable.gameObject.SetActive(true);
+
+            if (pickable.PickUpSound != null)
+                MusicManager.Instance.PlaySFX(pickable.DropSound);
         }
 
         if (!pickablesInRange.Contains(pickable))
