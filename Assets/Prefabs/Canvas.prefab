@@ -280,6 +280,7 @@ MonoBehaviour:
   timerLabel: {fileID: 2035770803}
   oxygenBar: {fileID: 2140174880329654446}
   gameOverPanel: {fileID: 5202411669708997124}
+  gameWinPanel: {fileID: 7263321306172440737}
 --- !u!1 &148397600805227996
 GameObject:
   m_ObjectHideFlags: 0
