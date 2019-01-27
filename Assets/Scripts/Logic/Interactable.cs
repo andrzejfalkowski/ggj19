@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using TMPro;
 
 public class Interactable : MonoBehaviour
 {
@@ -58,7 +59,11 @@ public class Interactable : MonoBehaviour
             aura.DOFade(1f, 0.3f).SetLoops(-1, LoopType.Yoyo).SetId("Pulsate" + this.gameObject.GetInstanceID());
         }
         if (label != null)
+        {
             label.SetActive(true);
+            label.transform.GetComponentInChildren<TextMeshProUGUI>().text = name;
+        }
+            
     }
 
     public void Unhighlight()
