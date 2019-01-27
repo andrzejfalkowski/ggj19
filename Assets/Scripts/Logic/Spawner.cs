@@ -21,6 +21,11 @@ public class Spawner : MonoBehaviour
 
     private bool initial = true;
 
+    private void Awake()
+    {
+        this.GetComponent<SpriteRenderer>().enabled = false;
+    }
+
     private void Start()
     {
         SpawnNext();
