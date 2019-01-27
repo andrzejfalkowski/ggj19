@@ -47,17 +47,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b65bd484b39e2b45ac2ab59b50f1624, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: Soda Can
+  name: Stamp
   spriteRenderer: {fileID: 6463966299624846765}
-  resourceType: 0
+  resourceType: 5
   timeToInteract: 0.3
   tightness: 100
   durability: 100
   aura: {fileID: 5702060535536743618}
   label: {fileID: 2055990498153000171}
-  BuildSound: {fileID: 8300000, guid: 36e470b190166e0499bf30abcae16801, type: 3}
+  BuildSound: {fileID: 8300000, guid: 2d7e7ca7a41f4c747bc8281deb26de28, type: 3}
   DestructionSound: {fileID: 8300000, guid: c1b3d04727c12304fadf876dbeb63867, type: 3}
-  Weight: 0.4
+  Weight: 0.2
   PickUpSound: {fileID: 8300000, guid: 79e8c3f2eb7cbaf499597b5c26283e50, type: 3}
   DropSound: {fileID: 8300000, guid: 2d7e7ca7a41f4c747bc8281deb26de28, type: 3}
 --- !u!1 &2055990498153000171
@@ -242,7 +242,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -1
-  m_Sprite: {fileID: 21300000, guid: 3f446b14642a3e540b3f24db25c85e19, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 98f8fe454fd40344baf0ba63b839040e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -596,7 +596,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 817625f6012e9ed4f8e59b7f656e64f5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3b32b22dda69a48489c8edc7bc48c255, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
