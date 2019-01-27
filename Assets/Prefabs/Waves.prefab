@@ -285,7 +285,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minLevel: -4.25
-  maxLevel: 5
+  maxLevel: 20
   externalWave: {fileID: 266831690}
   internalWave: {fileID: 267442944}
   waterSound: {fileID: 4795737800030431818}
