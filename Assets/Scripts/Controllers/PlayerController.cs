@@ -541,7 +541,7 @@ public class PlayerController : MonoBehaviour
     {
         interactionBar.fillAmount = value;
 
-        interactionBar.gameObject.SetActive(value > 0f && value < 1f);
+        interactionBar.transform.parent.gameObject.SetActive(value > 0f && value < 1f);
     }
 
     public void ChangeInteractionLabel(string label)

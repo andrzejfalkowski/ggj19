@@ -12,6 +12,8 @@ public class WallSlot : Interactable
 
     [SerializeField]
     private Image HPBar;
+    [SerializeField]
+    private GameObject Exclamation;
 
     [SerializeField]
     private List<Sprite> sprites;
@@ -22,7 +24,8 @@ public class WallSlot : Interactable
         defaultSprite = this.spriteRenderer.sprite;
         this.durability = startDurability = 0f;
 
-        HPBar.gameObject.SetActive(false);
+        //HPBar.gameObject.SetActive(false);
+        Exclamation.SetActive(true);
         SetLeakPower();
     }
 
@@ -37,7 +40,7 @@ public class WallSlot : Interactable
         this.DestructionSound = pickable.DestructionSound;
 
         HPBar.fillAmount = this.durability / startDurability;
-        HPBar.gameObject.SetActive(this.durability > 0f && startDurability > 0f);
+        Exclamation.gameObject.SetActive(this.durability > 0f);
     }
 
     public void DamageWall(float damage)
@@ -48,7 +51,7 @@ public class WallSlot : Interactable
         SetLeakPower();
 
         HPBar.fillAmount = this.durability / startDurability;
-        HPBar.gameObject.SetActive(this.durability > 0f && startDurability > 0f);
+        Exclamation.gameObject.SetActive(this.durability > 0f);
 
         if (this.durability <= 0f)
         {
