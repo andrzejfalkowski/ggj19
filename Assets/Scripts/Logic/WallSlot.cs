@@ -86,6 +86,7 @@ public class WallSlot : Interactable
 
     public void StopLeak()
     {
+        if(leakParticle != null)
         leakParticle.gameObject.SetActive(false);
     }
 }
