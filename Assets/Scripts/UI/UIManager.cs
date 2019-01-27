@@ -73,7 +73,7 @@ public class UIManager : MonoBehaviour
 
     public void GameWin()
     {
-        gameOverPanel.SetActive(true);
+        gameWinPanel.SetActive(true);
     }
 
     public void PlayAgain()
