@@ -58,12 +58,14 @@ public class WallSlot : Interactable
 
     void DestroyWall()
     {
+        if (DestructionSound != null && this.tightness > 0f)
+            MusicManager.Instance.PlaySFX(DestructionSound);
+
         this.spriteRenderer.sprite = defaultSprite;
         this.tightness = 0f;
         this.durability = 0f;
 
-        if (DestructionSound != null)
-            MusicManager.Instance.PlaySFX(DestructionSound);
+
     }
 
     void SetLeakPower()

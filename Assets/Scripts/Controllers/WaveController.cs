@@ -11,17 +11,20 @@ public class WaveController : MonoBehaviour
     [SerializeField]
     private float maxLevel = 2f;
 
-    [SerializeField]
-    private float inflowDuration = 20f;
+    //[SerializeField]
+    //private float inflowDuration = 20f;
 
-    [SerializeField]
-    private float outflowDuration = 5f;
+    //[SerializeField]
+    //private float outflowDuration = 5f;
 
     [SerializeField]
     private GameObject externalWave;
 
     [SerializeField]
     private GameObject internalWave;
+
+    [SerializeField]
+    private AudioSource waterSound;
 
     public List<WallSlot> WallSlots = new List<WallSlot>();
     private float tightness = 0f;
@@ -38,17 +41,20 @@ public class WaveController : MonoBehaviour
         previousExternalY = minLevel;
         internalWave.transform.DOLocalMoveY(minLevel, 0f);
         externalWave.transform.DOLocalMoveY(minLevel, 0f);
-        externalWave.transform.DOLocalMoveY(maxLevel, inflowDuration)
+        externalWave.transform.DOLocalMoveY(maxLevel, GameplayManager.INFLOW_DURATION)
             .OnComplete(() => { StartOutflow(); })
             .OnUpdate(()=> { OnUpdate(); })
             .SetDelay(0.1f);
+
+        waterSound.DOFade(0.3f, 3f);
     }
 
     public void StartOutflow()
     {
         externalWave.transform.DOLocalMoveY(maxLevel, 0f);
-        internalWave.transform.DOLocalMoveY(minLevel, outflowDuration);
-        externalWave.transform.DOLocalMoveY(minLevel, outflowDuration).OnUpdate(() => { OnUpdate(false); });
+        internalWave.transform.DOLocalMoveY(minLevel, GameplayManager.OUTFLOW_DURATION);
+        externalWave.transform.DOLocalMoveY(minLevel, GameplayManager.OUTFLOW_DURATION).OnUpdate(() => { OnUpdate(false); });
+        waterSound.DOFade(0f, 5f);
     }
 
     void OnUpdate(bool calculateInternal = true)
@@ -98,7 +104,7 @@ public class WaveController : MonoBehaviour
         // damage walls
         for (int i = 0; i < relevantWallSlots.Count; i++)
         {
-            relevantWallSlots[i].DamageWall(10f * Time.deltaTime);
+            relevantWallSlots[i].DamageWall(5f * Time.deltaTime);
         }
     }
 

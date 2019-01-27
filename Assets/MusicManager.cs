@@ -20,6 +20,9 @@ public class MusicManager : MonoBehaviour
     AudioSource gameOverMusic;
 
     [SerializeField]
+    AudioSource siren;
+
+    [SerializeField]
     AudioSource sfx;
 
     private void Awake()
@@ -43,6 +46,11 @@ public class MusicManager : MonoBehaviour
     public void PlayGameOver()
     {
         gameOverMusic.Play();
+    }
+
+    public void Siren()
+    {
+        siren.Play();
     }
 
     public void PlaySFX(string name)
