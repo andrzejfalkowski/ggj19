@@ -392,7 +392,6 @@ public class PlayerController : MonoBehaviour
             currentlyColliding.Add(collision.collider);
         }
         grounded = true;
-        Debug.Log("enter collisions " + currentlyColliding.Count);
     }
 
     private void OnCollisionExit2D(Collision2D collision)
@@ -406,7 +405,6 @@ public class PlayerController : MonoBehaviour
             currentlyColliding.Remove(collision.collider);
         }
         grounded = (currentlyColliding.Count != 0);
-        Debug.Log("exit collisions " + currentlyColliding.Count);
     }
 
     public void CollisionTurnedIntoTrigger(Collider2D collider)
@@ -416,7 +414,6 @@ public class PlayerController : MonoBehaviour
             currentlyColliding.Remove(collider);
         }
         grounded = (currentlyColliding.Count != 0);
-        Debug.Log("trigger collisions " + currentlyColliding.Count);
     }
 
     private void OnTriggerEnter2D(Collider2D collider)
