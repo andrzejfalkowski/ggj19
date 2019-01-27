@@ -209,7 +209,7 @@ MonoBehaviour:
   spriteRenderer: {fileID: 6484078890189892983}
   resourceType: 0
   timeToInteract: 0.3
-  tightness: 75
+  tightness: 95
   durability: 100
   aura: {fileID: 8474863542551069948}
   label: {fileID: 4326409011366216166}
