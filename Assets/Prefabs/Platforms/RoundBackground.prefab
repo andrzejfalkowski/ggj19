@@ -68,7 +68,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -2
-  m_Sprite: {fileID: 21300000, guid: 00127764ee5947d40834a85a6a37c706, type: 3}
+  m_Sprite: {fileID: 21300000, guid: cacaccfbf092282409aef7eff9ce7ed7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -89,7 +89,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1108826790551478796}
   m_Layer: 0
-  m_Name: SewerBackground
+  m_Name: RoundBackground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
