@@ -43,7 +43,7 @@ public class GameplayManager : MonoBehaviour
         NextPhase();
     }
 
-    public const float PREPARATION_DURATION = 30f;
+    public const float PREPARATION_DURATION = 60f;
     public const float INFLOW_DURATION = 20f;
     public const float OUTFLOW_DURATION = 5f;
     void NextPhase()
