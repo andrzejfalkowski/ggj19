@@ -15,6 +15,8 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI timerLabel;
 
+    [SerializeField]
+    private Image oxygenBar;
 
     [SerializeField]
     private GameObject gameOverPanel;
@@ -71,5 +73,12 @@ public class UIManager : MonoBehaviour
     {
         DOTween.KillAll(false);
         UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
+    }
+
+    public void ChangeOxygenLevel(float value)
+    {
+        oxygenBar.fillAmount = value;
+
+        //oxygenBar.gameObject.SetActive(value < 1f);
     }
 }

@@ -227,7 +227,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6513803791731862891
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1287,7 +1287,6 @@ MonoBehaviour:
   breathingSkills: 0.1
   interactionBar: {fileID: 8842176044663728908}
   interactionLabel: {fileID: 7020190111676322858}
-  oxygenBar: {fileID: 5288725354004236049}
   interactionLoop: {fileID: 9139946788168586698}
 --- !u!50 &4605897213917580994
 Rigidbody2D:

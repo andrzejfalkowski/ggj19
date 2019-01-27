@@ -63,8 +63,7 @@ public class PlayerController : MonoBehaviour
     private Image interactionBar;
     [SerializeField]
     private TextMeshProUGUI interactionLabel;
-    [SerializeField]
-    private Image oxygenBar;
+
 
     [SerializeField]
     private AudioSource interactionLoop;
@@ -183,7 +182,7 @@ public class PlayerController : MonoBehaviour
             oxygen = Mathf.Clamp01(oxygen + Time.deltaTime * breathingSkills);
             this.rigidbody.gravityScale = defaultGravity;
         }
-        ChangeOxygenLevel(oxygen);       
+        UIManager.Instance.ChangeOxygenLevel(oxygen);       
     }
 
     private void SetAnimationValues()
@@ -536,12 +535,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void ChangeOxygenLevel(float value)
-    {
-        oxygenBar.fillAmount = value;
 
-        oxygenBar.gameObject.SetActive(value < 1f);
-    }
 
     public void ChangeInteractionProgress(float value)
     {
