@@ -31,6 +31,9 @@ public class Interactable : MonoBehaviour
     [SerializeField]
     private SpriteRenderer aura;
 
+    [SerializeField]
+    private GameObject label;
+
     private Spawner spawner;
 
     private void Start()
@@ -51,12 +54,16 @@ public class Interactable : MonoBehaviour
         {
             aura.DOFade(1f, 0.3f).SetLoops(-1, LoopType.Yoyo).SetId("Pulsate" + this.gameObject.GetInstanceID());
         }
+        if (label != null)
+            label.SetActive(true);
     }
 
     public void Unhighlight()
     {
         DOTween.Kill("Pulsate" + this.gameObject.GetInstanceID());
         aura.color = new Color(aura.color.r, aura.color.g, aura.color.b, 0f);
+        if (label != null)
+            label.SetActive(false);
     }
 
     private void OnDestroy()

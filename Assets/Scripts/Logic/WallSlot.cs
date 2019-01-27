@@ -13,6 +13,11 @@ public class WallSlot : Interactable
     [SerializeField]
     private Image HPBar;
 
+    [SerializeField]
+    private List<Sprite> sprites;
+
+
+
     private void Start()
     {
         GameplayManager.Instance.SubscribeWallSlot(this);
@@ -25,7 +30,8 @@ public class WallSlot : Interactable
 
     public void BuildWall(Pickable pickable)
     {
-        this.spriteRenderer.sprite = pickable.Sprite;
+        //this.spriteRenderer.sprite = pickable.Sprite;
+        this.spriteRenderer.sprite = sprites[(int)pickable.ResourceType];
         this.resourceType = pickable.ResourceType;
         this.tightness = pickable.Tightness;
         this.durability = pickable.Durability;
