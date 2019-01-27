@@ -13,6 +13,7 @@ public class SpecialSlot : WallSlot
 
     public override void BuildWall(Pickable pickable)
     {
+        base.BuildWall(pickable);
         this.GetComponent<Collider2D>().enabled = false;
         GameplayManager.Instance.WinItem();
     }
