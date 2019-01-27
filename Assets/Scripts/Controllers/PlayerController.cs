@@ -346,11 +346,11 @@ public class PlayerController : MonoBehaviour
         ChangeInteractionProgress(currentInteractionDuration / wallSlot.TimeToInteract);
         ChangeInteractionLabel("Building Wall...");
 
-        UnityEngine.Debug.Log((pickable.BuildSound != null));
+        //UnityEngine.Debug.Log((pickable.BuildSound != null));
         if (pickable.BuildSound != null)
         {
             interactionLoop.clip = pickable.BuildSound;
-            UnityEngine.Debug.Log(interactionLoop.clip.name);
+            //UnityEngine.Debug.Log(interactionLoop.clip.name);
             interactionLoop.volume = 1f;
             if(!interactionLoop.isPlaying)
                 interactionLoop.Play();
